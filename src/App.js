@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   const { pathname } = useLocation();
-  const publicRoutePathnames = ["/login", "/signup", "/"];
+  const publicRoutePathnames = ["/signup", "/"];
 
   return (
     <Box bg="var(--chakra-colors-gray-200)" h="max-content">
