@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { Signup, Login, Home, Explore, Bookmark, Profile } from "pages";
 import { Navbar, SuggestionSidebar } from "components";
 import { Box, Center, Container } from "@chakra-ui/react";
+import { RequiresAuth } from "RequiresAuth";
 import "./App.css";
 
 function App() {
@@ -25,10 +26,38 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/bookmark" element={<Bookmark />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/home"
+              element={
+                <RequiresAuth>
+                  <Home />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="/bookmark"
+              element={
+                <RequiresAuth>
+                  <Bookmark />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="/explore"
+              element={
+                <RequiresAuth>
+                  <Explore />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <RequiresAuth>
+                  <Profile />
+                </RequiresAuth>
+              }
+            />
           </Routes>
           {publicRoutePathnames.includes(pathname) ? null : (
             <SuggestionSidebar />

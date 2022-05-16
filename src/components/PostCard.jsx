@@ -42,7 +42,7 @@ export const PostCard = () => {
         {/* ellipsis menu */}
 
         <Menu>
-          <MenuButton as={Button} borderRadius="full" p="1" >
+          <MenuButton as={Box} cursor="pointer" _hover={{bg: "gray.200"}} borderRadius="full" p="1" >
             <IconButton
               aria-label="Open Menu"
               backgroundColor={"transparent"}

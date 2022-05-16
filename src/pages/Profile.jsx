@@ -1,27 +1,47 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Text, VStack, Link, HStack } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { PostCard, EditProfileModal } from "components";
+import { logout } from "redux/slices/authSlice";
 
 export const Profile = () => {
-  const { isOpen: isOpenProfile, onOpen: onOpenProfile, onClose: onCloseProfile } = useDisclosure();
+  const {
+    isOpen: isOpenProfile,
+    onOpen: onOpenProfile,
+    onClose: onCloseProfile,
+  } = useDisclosure();
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
 
   return (
     <VStack flexGrow={1} maxW="600px">
-      <Avatar size="2xl" name="Dan Abramov" src="https://bit.ly/dan-abramov" />
+      <Avatar size="2xl" name={user.firstName + " " + user.lastName} src={user.imageSrc} />
       <Text fontWeight={700} fontSize="xl">
-        Dan Abramov
+        {user.firstName} {user.lastName}
       </Text>
-      <Text color={"gray.600"}>@danabramov</Text>
+      <Text color={"gray.600"}>@{user.username}</Text>
       <HStack>
-        <Button onClick={onOpenProfile} colorScheme={"blue"}>Edit Profile</Button>
-        <Button colorScheme={"red"}>Logout</Button>
+        <Button onClick={onOpenProfile} colorScheme={"blue"}>
+          Edit Profile
+        </Button>
+        <Button onClick={handleLogout} colorScheme={"red"}>
+          Logout
+        </Button>
       </HStack>
       <Text textAlign={"center"}>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias
         quibusdam fuga molestiae asperiores impedit omnis.
       </Text>
-      <Link color={"blue.500"} href="https://chakra-ui.com" isExternal>
-        danabramov.com
+      <Link color={"blue.500"} href="https://github.com/AnkurChunekar" isExternal>
+        view github profile
       </Link>
 
       <HStack maxW={"500px"} bg="white" borderRadius="lg">
@@ -52,8 +72,8 @@ export const Profile = () => {
       <EditProfileModal
         isOpenProfile={isOpenProfile}
         onOpenProfile={onOpenProfile}
-        onCloseProfile={onCloseProfile}/>
-
+        onCloseProfile={onCloseProfile}
+      />
     </VStack>
   );
 };

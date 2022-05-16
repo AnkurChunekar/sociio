@@ -12,6 +12,7 @@ export const users = [
     lastName: "Balika",
     username: "adarshbalika",
     password: "adarshBalika123",
+    imageSrc: "https://randomuser.me/api/portraits/women/63.jpg",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
