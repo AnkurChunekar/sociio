@@ -1,4 +1,5 @@
 import { Link as ReachLink, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import {
   Avatar,
@@ -60,6 +61,7 @@ export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const { pathname } = location;
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -71,45 +73,47 @@ export const Navbar = () => {
           alignItems="center"
           maxW={"1280px"}
         >
-          <Link as={ReachLink} _hover={{"textDecoration": "none"}} to="/home">
+          <Link as={ReachLink} _hover={{ textDecoration: "none" }} to="/home">
             <Heading as="h2">Sociio</Heading>
           </Link>
-          <HStack alignItems={"center"} gap={{ base: 0.5, sm: 1, md: 2 }}>
-            {linkData.map((item) => (
-              <Link key={item.id} as={ReachLink} to={item.pathname}>
-                <Tooltip label={item.tooltipText}>
-                  <IconButton
+          {user ? (
+            <HStack alignItems={"center"} gap={{ base: 0.5, sm: 1, md: 2 }}>
+              {linkData.map((item) => (
+                <Link key={item.id} as={ReachLink} to={item.pathname}>
+                  <Tooltip label={item.tooltipText}>
+                    <IconButton
+                      borderRadius="full"
+                      icon={
+                        pathname === item.pathname ? (
+                          <item.activeIcon size="22px" w="25px" h="25px" />
+                        ) : (
+                          <item.icon size="22px" w="25px" h="25px" />
+                        )
+                      }
+                    />
+                  </Tooltip>
+                </Link>
+              ))}
+              <Tooltip label="Create Post" fontSize="md">
+                <IconButton
+                  onClick={onOpen}
+                  borderRadius="full"
+                  icon={<IoMdAddCircleOutline size="22px" w="25px" h="25px" />}
+                />
+              </Tooltip>
+              <Link as={ReachLink} to="/profile">
+                <Tooltip label="Profile" fontSize="md">
+                  <Avatar
+                    h="35px"
+                    w="35px"
                     borderRadius="full"
-                    icon={
-                      pathname === item.pathname ? (
-                        <item.activeIcon size="22px" w="25px" h="25px" />
-                      ) : (
-                        <item.icon size="22px" w="25px" h="25px" />
-                      )
-                    }
+                    name={user.firstName + " " + user.lastName}
+                    src={user.imageSrc}
                   />
                 </Tooltip>
               </Link>
-            ))}
-            <Tooltip label="Create Post" fontSize="md">
-              <IconButton
-                onClick={onOpen}
-                borderRadius="full"
-                icon={<IoMdAddCircleOutline size="22px" w="25px" h="25px" />}
-              />
-            </Tooltip>
-            <Link as={ReachLink} to="/profile">
-              <Tooltip label="Profile" fontSize="md">
-                <Avatar
-                  h="35px"
-                  w="35px"
-                  borderRadius="full"
-                  name="Ryan Florence"
-                  src="https://bit.ly/ryan-florence"
-                />
-              </Tooltip>
-            </Link>
-          </HStack>
+            </HStack>
+          ) : null}
         </Container>
       </Box>
 
