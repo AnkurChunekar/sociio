@@ -12,6 +12,7 @@ export const users = [
     lastName: "Balika",
     username: "adarshbalika",
     password: "adarshBalika123",
+    imageSrc: "https://picsum.photos/100",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
