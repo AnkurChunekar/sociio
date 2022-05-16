@@ -76,7 +76,7 @@ export const Navbar = () => {
           </Link>
           <HStack alignItems={"center"} gap={{ base: 0.5, sm: 1, md: 2 }}>
             {linkData.map((item) => (
-              <Link as={ReachLink} to={item.pathname}>
+              <Link key={item.id} as={ReachLink} to={item.pathname}>
                 <Tooltip label={item.tooltipText}>
                   <IconButton
                     borderRadius="full"
