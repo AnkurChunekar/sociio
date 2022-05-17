@@ -656,7 +656,7 @@ export const posts = [
     createdAt: new Date("April 03 2022 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
-      "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181890/socmedia/pic6_brdxis.jpg",
+      "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
     comments: [],
   },
   {
@@ -890,7 +890,7 @@ export const posts = [
   },
   {
     _id: uuid(),
-    content: `Nothing can beat the joy of seeing live users on your website. Thankyou so much @neogcamp @tanviprya @tanaypratap @ch_akanksha for organizing #hackneoG And just an update we have crossed 75 users as of now 😅`,
+    content: `Nothing can beat the joy of seeing live users on your website.`,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -936,7 +936,7 @@ export const posts = [
     createdAt: new Date("July 13 2021 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
-      "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181890/socmedia/pic6_brdxis.jpg",
+      "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
     comments: [],
   },
   {

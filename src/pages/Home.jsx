@@ -1,25 +1,26 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, Fragment } from "react";
 import { Text, VStack } from "@chakra-ui/react";
 import { PostCard } from "components";
-import { getAllPostsService } from "services";
-import { useDispatch } from "react-redux";
-import { getAllUsers } from "redux/asyncThunks";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers, getAllPosts } from "redux/asyncThunks";
 
 export const Home = () => {
-  const [postsData, setPostsData] = useState([]);
+  const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
 
   useEffect(() => {
-    getAllPostsService(setPostsData);
-  }, []);
+    dispatch(getAllPosts());
+  }, [dispatch]);
+
+  const getReversedPosts = () => [...posts].reverse();
 
   return (
     <VStack gap={5}>
-      {postsData.length > 0 ? (
-        postsData.map((item) => (
+      {posts.length > 0 ? (
+        getReversedPosts().map((item) => (
           <Fragment key={item._id}>
             <PostCard postData={item} />
           </Fragment>

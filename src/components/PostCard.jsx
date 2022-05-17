@@ -1,3 +1,4 @@
+import { useSelector, useDispatch } from "react-redux";
 import {
   Avatar,
   Flex,
@@ -13,13 +14,24 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { AiOutlineEllipsis, AiOutlineHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { VscComment } from "react-icons/vsc";
+import { deletePost } from "redux/asyncThunks";
+import { PostModal } from "./PostModal";
 
 export const PostCard = ({ postData }) => {
-  if (postData === undefined) return;
+  const { user, token } = useSelector((state) => state.auth);
+  const { onOpen, isOpen, onClose } = useDisclosure();
+
+  const dispatch = useDispatch();
+  if (postData === undefined) {
+    return;
+  }
+
+  const isCurrentUsersPost = user.username === postData.username;
 
   return (
     <VStack
@@ -44,29 +56,36 @@ export const PostCard = ({ postData }) => {
         </HStack>
 
         {/* ellipsis menu */}
-
-        <Menu>
-          <MenuButton
-            as={Box}
-            cursor="pointer"
-            _hover={{ bg: "gray.200" }}
-            borderRadius="full"
-            p="1"
-          >
-            <IconButton
-              aria-label="Open Menu"
-              backgroundColor={"transparent"}
-              marginLeft={"auto"}
-              fontSize="30px"
-              size={"xs"}
-              icon={<AiOutlineEllipsis />}
-            />
-          </MenuButton>
-          <MenuList minWidth="140px">
-            <MenuItem>Edit</MenuItem>
-            <MenuItem>Delete</MenuItem>
-          </MenuList>
-        </Menu>
+        {isCurrentUsersPost ? (
+          <Menu>
+            <MenuButton
+              as={Box}
+              cursor="pointer"
+              _hover={{ bg: "gray.200" }}
+              borderRadius="full"
+              p="1"
+            >
+              <IconButton
+                aria-label="Open Menu"
+                backgroundColor={"transparent"}
+                marginLeft={"auto"}
+                fontSize="30px"
+                size={"xs"}
+                icon={<AiOutlineEllipsis />}
+              />
+            </MenuButton>
+            <MenuList minWidth="140px">
+              <MenuItem onClick={onOpen}>Edit</MenuItem>
+              <MenuItem
+                onClick={() =>
+                  dispatch(deletePost({ postId: postData._id, token }))
+                }
+              >
+                Delete
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        ) : null}
 
         {/* ellipsis menu */}
       </Flex>
@@ -98,7 +117,7 @@ export const PostCard = ({ postData }) => {
               icon={<VscComment />}
             />
           </Tooltip>
-          <Text>{postData.comments.length}</Text>
+          {/* <Text>{postData.comments.length}</Text> */}
         </HStack>
 
         <HStack>
@@ -121,7 +140,16 @@ export const PostCard = ({ postData }) => {
         </Button>
       </HStack>
 
-      {postData.comments.map((item) => (
+      {isCurrentUsersPost ? (
+        <PostModal
+          isOpen={isOpen}
+          onClose={onClose}
+          editMode={true}
+          editPostData={postData}
+        />
+      ) : null}
+
+      {/* {postData.comments.map((item) => (
         <HStack key={item._id} alignItems={"center"} flexGrow="1" px="2" flexWrap={"wrap"}>
           <Avatar size="xs" src={item.avatarURL} />
           <Text fontWeight={"600"} fontSize="15px">
@@ -129,7 +157,7 @@ export const PostCard = ({ postData }) => {
           </Text>
           <Text fontSize="15px">{item.text}</Text>
         </HStack>
-      ))}
+      ))} */}
     </VStack>
   );
 };
