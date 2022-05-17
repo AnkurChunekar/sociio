@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, signup } from "redux/asyncThunks";
+import { login, signup, editUser } from "redux/asyncThunks";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -41,6 +41,17 @@ const authSlice = createSlice({
       state.token = action.payload.data.encodedToken;
     },
     [signup.rejected]: (state, action) => {
+      state.isLoading = false;
+      console.error(action);
+    },
+    [editUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload.data.user;
+    },
+    [editUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editUser.rejected]: (state, action) => {
       state.isLoading = false;
       console.error(action);
     },
