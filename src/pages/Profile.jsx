@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Button, Text, VStack, Link, HStack } from "@chakra-ui/react";
@@ -16,6 +16,7 @@ export const Profile = () => {
   const [userData, setUserData] = useState(null);
 
   const { user } = useSelector((state) => state.auth);
+  const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
@@ -29,6 +30,9 @@ export const Profile = () => {
     navigate("/");
   };
 
+  const currentUsersPosts =
+    userData && posts.filter((item) => item.username === userData.username);
+
   return userData ? (
     <VStack flexGrow={1} maxW="600px">
       <Avatar
@@ -40,7 +44,7 @@ export const Profile = () => {
         {userData.firstName} {userData.lastName}
       </Text>
       <Text color={"gray.600"}>@{userData.username}</Text>
-      
+
       {user._id === userData._id ? (
         <HStack>
           <Button onClick={onOpenProfile} colorScheme={"blue"}>
@@ -76,10 +80,13 @@ export const Profile = () => {
         Your Posts
       </Text>
       <VStack gap={5} marginTop="50px">
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        {userData
+          ? currentUsersPosts.map((item) => (
+              <Fragment key={item._id}>
+                <PostCard postData={item} />
+              </Fragment>
+            ))
+          : null}
       </VStack>
 
       <EditProfileModal
