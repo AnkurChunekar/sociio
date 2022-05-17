@@ -44,9 +44,6 @@ export function makeServer({ environment = "development" } = {}) {
       users.forEach((item) =>
         server.create("user", {
           ...item,
-          followers: [],
-          following: [],
-          bookmarks: [],
         })
       );
       posts.forEach((item) => server.create("post", { ...item }));
@@ -54,6 +51,12 @@ export function makeServer({ environment = "development" } = {}) {
 
     routes() {
       this.namespace = "api";
+
+      // Allow external URLs to pass through
+      this.passthrough(
+        "https://api.cloudinary.com/v1_1/sociio/image/upload"
+      );
+
       // auth routes (public)
       this.post("/auth/signup", signupHandler.bind(this));
       this.post("/auth/login", loginHandler.bind(this));

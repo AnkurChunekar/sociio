@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Modal,
   ModalOverlay,
@@ -7,73 +9,170 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Text,
   Avatar,
   Box,
   Input,
   Textarea,
   FormLabel,
-  HStack,
   VStack,
+  FormControl,
 } from "@chakra-ui/react";
 import { AiFillCamera } from "react-icons/ai";
+import { editUser } from "redux/asyncThunks";
+import { saveAvatarToCloudinaryService } from "services";
+import { setAuthLoading } from "redux/slices/authSlice";
 
-export const EditProfileModal = ({ isOpenProfile, onCloseProfile }) => {
+export const EditProfileModal = ({
+  isOpenProfile,
+  onCloseProfile,
+  userData,
+  setUserData,
+}) => {
+  const initialInputData = { ...userData, avatarURL: "", avatarFile: {} };
+  const [inputData, setInputData] = useState(initialInputData);
+  let reader = new FileReader();
+
+  const { isLoading, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const addProfileImageHandler = (e) => {
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setInputData({
+          ...inputData,
+          avatarURL: reader.result,
+          avatarFile: e.target.files[0],
+        });
+      }
+    };
+  };
+
+  const updateUserInput = (e) => {
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  };
+
+  const closeModalHandler = () => {
+    setInputData(initialInputData);
+    onCloseProfile();
+  };
+
+  const editUserHandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (inputData.avatarURL !== "") {
+        dispatch(setAuthLoading());
+        await saveAvatarToCloudinaryService(inputData.avatarFile, setInputData);
+      }
+
+      const data = {
+        avatarURL: inputData.avatarURL || userData.avatarURL,
+        website: inputData.website,
+        bio: inputData.bio,
+      };
+      const response = await dispatch(editUser({ userData: data, token }));
+      if (response.payload.status === 201) {
+        setUserData(response.payload.data.user);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onCloseProfile();
+    }
+  };
+
+  useEffect(() => {
+    setInputData({ ...userData, avatarURL: "", avatarFile: {} });
+  }, [userData]);
+
   return (
-    <Modal isOpen={isOpenProfile} onClose={onCloseProfile}>
+    <Modal isOpen={isOpenProfile} onClose={closeModalHandler}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent as="form" onSubmit={editUserHandler}>
         <ModalHeader>Edit Profile</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <VStack alignItems={"flex-start"}>
-            <HStack alignItems={"center"} gap="5">
-              <Text>Avatar</Text>
+            <FormControl display={"flex"} alignItems="center" gap="5">
+              <FormLabel>Avatar</FormLabel>
               <Box position="relative">
                 <Avatar
-                  name="Dan Abrahmov"
-                  src="https://bit.ly/dan-abramov"
+                  name={inputData.firstName + " " + inputData.lastName}
+                  src={inputData.avatarURL || userData.avatarURL}
                   size="lg"
                 ></Avatar>
-                <Box position="absolute" top="60%" right="-10%">
-                  <FormLabel cursor="pointer">
+                <Box
+                  position="absolute"
+                  p="1"
+                  borderRadius={"full"}
+                  top="50%"
+                  right="10%"
+                  bg="blackAlpha.500"
+                >
+                  <Box cursor="pointer">
                     <Input
                       type="file"
+                      accept="image/*"
                       position="absolute"
                       opacity="0"
                       bgColor="red.100"
                       p="0"
-                      visibility="hidden"
+                      onChange={addProfileImageHandler}
+                      cursor={"pointer"}
                     />
                     <AiFillCamera fontSize="20px" color="white" />
-                  </FormLabel>
+                  </Box>
                 </Box>
               </Box>
-            </HStack>
-            <HStack alignItems={"center"} gap="2" w="full">
-              <Text>Website</Text>
+            </FormControl>
+
+            <FormControl
+              display={"flex"}
+              alignItems={"center"}
+              w="full"
+              isRequired
+            >
+              <FormLabel>Website</FormLabel>
               <Input
-                placeholder="https://adarshbalika.netlify.app/"
+                type="text"
+                placeholder="add a website here"
+                value={inputData.website}
+                name="website"
+                onChange={updateUserInput}
                 borderColor="var(--chakra-colors-gray-300)"
                 borderRadius="md"
               ></Input>
-            </HStack>
-            <HStack alignItems={"flex-start"} gap="2.7rem" w="full">
-              <Text>Bio</Text>
+            </FormControl>
+
+            <FormControl
+              display={"flex"}
+              alignItems={"flex-start"}
+              gap="2.5rem"
+              w="full"
+              isRequired
+            >
+              <FormLabel>Bio</FormLabel>
               <Textarea
                 borderRadius={"md"}
-                placeholder="An aspiring web developer"
+                name="bio"
+                placeholder="Add a bio here"
+                value={inputData.bio}
+                onChange={updateUserInput}
                 resize="none"
                 _hover={{
                   borderColor: "brand.400",
                 }}
               ></Textarea>
-            </HStack>
+            </FormControl>
           </VStack>
         </ModalBody>
         <ModalFooter gap={2}>
-          <Button colorScheme="blue">Update</Button>
-          <Button onClick={onCloseProfile}>Close</Button>
+          <Button type="submit" isLoading={isLoading} colorScheme="blue">
+            Update
+          </Button>
+          <Button type="button" onClick={closeModalHandler}>
+            Close
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

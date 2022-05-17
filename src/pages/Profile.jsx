@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Button, Text, VStack, Link, HStack } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { PostCard, EditProfileModal } from "components";
 import { logout } from "redux/slices/authSlice";
+import { getUserService } from "services";
 
 export const Profile = () => {
   const {
@@ -11,50 +13,61 @@ export const Profile = () => {
     onOpen: onOpenProfile,
     onClose: onCloseProfile,
   } = useDisclosure();
+  const [userData, setUserData] = useState(null);
 
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { username } = useParams();
+
+  useEffect(() => {
+    getUserService(username, setUserData);
+  }, [username]);
 
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
 
-  return (
+  return userData ? (
     <VStack flexGrow={1} maxW="600px">
-      <Avatar size="2xl" name={user.firstName + " " + user.lastName} src={user.imageSrc} />
+      <Avatar
+        size="2xl"
+        name={userData.firstName + " " + userData.lastName}
+        src={userData.avatarURL}
+      />
       <Text fontWeight={700} fontSize="xl">
-        {user.firstName} {user.lastName}
+        {userData.firstName} {userData.lastName}
       </Text>
-      <Text color={"gray.600"}>@{user.username}</Text>
-      <HStack>
-        <Button onClick={onOpenProfile} colorScheme={"blue"}>
-          Edit Profile
-        </Button>
-        <Button onClick={handleLogout} colorScheme={"red"}>
-          Logout
-        </Button>
-      </HStack>
-      <Text textAlign={"center"}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias
-        quibusdam fuga molestiae asperiores impedit omnis.
-      </Text>
-      <Link color={"blue.500"} href="https://github.com/AnkurChunekar" isExternal>
-        view github profile
+      <Text color={"gray.600"}>@{userData.username}</Text>
+      
+      {user._id === userData._id ? (
+        <HStack>
+          <Button onClick={onOpenProfile} colorScheme={"blue"}>
+            Edit Profile
+          </Button>
+          <Button onClick={handleLogout} colorScheme={"red"}>
+            Logout
+          </Button>
+        </HStack>
+      ) : null}
+
+      <Text textAlign={"center"}>{userData.bio}</Text>
+      <Link color={"blue.500"} href={userData.website} isExternal>
+        {userData.website.replace("https://", "")}
       </Link>
 
       <HStack maxW={"500px"} bg="white" borderRadius="lg">
         <VStack py="3" px="5">
-          <Text fontWeight="700">0</Text>
+          <Text fontWeight="700">{userData.following.length}</Text>
           <Text>Following</Text>
         </VStack>
         <VStack py="3" px="5">
-          <Text fontWeight="700">2K</Text>
+          <Text fontWeight="700">0</Text>
           <Text>Posts</Text>
         </VStack>
         <VStack py="3" px="5">
-          <Text fontWeight="700">37.3k</Text>
+          <Text fontWeight="700">{userData.followers.length}</Text>
           <Text>Followers</Text>
         </VStack>
       </HStack>
@@ -73,7 +86,11 @@ export const Profile = () => {
         isOpenProfile={isOpenProfile}
         onOpenProfile={onOpenProfile}
         onCloseProfile={onCloseProfile}
+        userData={userData}
+        setUserData={setUserData}
       />
     </VStack>
+  ) : (
+    <Text>...Fetching User Details</Text>
   );
 };
