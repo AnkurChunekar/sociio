@@ -68,7 +68,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "I am very adarsh and i am also a balika.",
-    portfolio: "https://adarshbalika.netlify.app/",
+    website: "https://adarshbalika.netlify.app/",
   },
   /*****************************************2*******************************************/
   {
@@ -123,7 +123,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Chakra UI is my favorite i use it a lot",
-    portfolio: "https://www.google.co.in/",
+    website: "https://www.google.co.in/",
   },
   /*******************************3*********************************/
   {
@@ -174,7 +174,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "An American singer, songwriter, actor, poet, guitarist and bass player",
-    portfolio: "https://www.google.co.in/",
+    website: "https://www.google.co.in/",
   },
   /**********************************************4*************************************************/
   {
@@ -229,7 +229,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Remix - Build Better Websites | React Training | React Router",
-    portfolio: "https://www.google.co.in/",
+    website: "https://www.google.co.in/",
   },
   /**************************************************5**************************************************/
   {
@@ -264,7 +264,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Software engineer at Facebook | Creator of Redux.",
-    portfolio: "https://www.google.co.in/",
+    website: "https://www.google.co.in/",
   },
   /*********************************************7*****************************************/
   {
@@ -294,6 +294,6 @@ export const users = [
      and 
     @zag_js
     .`,
-    portfolio: "https://www.google.co.in/",
+    website: "https://www.google.co.in/",
   },
 ];
