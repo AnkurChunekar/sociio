@@ -13,14 +13,14 @@ export const Profile = () => {
     onOpen: onOpenProfile,
     onClose: onCloseProfile,
   } = useDisclosure();
-  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
 
   useEffect(() => {
-    getUserService(username, setUser);
+    getUserService(username, setUserData);
   }, [username]);
 
   const handleLogout = () => {
@@ -28,17 +28,17 @@ export const Profile = () => {
     navigate("/");
   };
 
-  return user ? (
+  return userData ? (
     <VStack flexGrow={1} maxW="600px">
       <Avatar
         size="2xl"
-        name={user.firstName + " " + user.lastName}
-        src={user.avatarURL}
+        name={userData.firstName + " " + userData.lastName}
+        src={userData.avatarURL}
       />
       <Text fontWeight={700} fontSize="xl">
-        {user.firstName} {user.lastName}
+        {userData.firstName} {userData.lastName}
       </Text>
-      <Text color={"gray.600"}>@{user.username}</Text>
+      <Text color={"gray.600"}>@{userData.username}</Text>
       <HStack>
         <Button onClick={onOpenProfile} colorScheme={"blue"}>
           Edit Profile
@@ -47,26 +47,26 @@ export const Profile = () => {
           Logout
         </Button>
       </HStack>
-      <Text textAlign={"center"}>{user.bio}</Text>
+      <Text textAlign={"center"}>{userData.bio}</Text>
       <Link
         color={"blue.500"}
-        href="https://github.com/AnkurChunekar"
+        href={userData.website}
         isExternal
       >
-        {user.username + ".com"}
+        {userData.website.replace("https://", "")}
       </Link>
 
       <HStack maxW={"500px"} bg="white" borderRadius="lg">
         <VStack py="3" px="5">
-          <Text fontWeight="700">{user.following.length}</Text>
+          <Text fontWeight="700">{userData.following.length}</Text>
           <Text>Following</Text>
         </VStack>
         <VStack py="3" px="5">
-          <Text fontWeight="700">2K</Text>
+          <Text fontWeight="700">0</Text>
           <Text>Posts</Text>
         </VStack>
         <VStack py="3" px="5">
-          <Text fontWeight="700">{user.followers.length}</Text>
+          <Text fontWeight="700">{userData.followers.length}</Text>
           <Text>Followers</Text>
         </VStack>
       </HStack>
@@ -85,6 +85,8 @@ export const Profile = () => {
         isOpenProfile={isOpenProfile}
         onOpenProfile={onOpenProfile}
         onCloseProfile={onCloseProfile}
+        userData={userData}
+        setUserData={setUserData}
       />
     </VStack>
   ) : (
