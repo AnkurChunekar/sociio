@@ -101,14 +101,18 @@ export const Navbar = () => {
                   icon={<IoMdAddCircleOutline size="22px" w="25px" h="25px" />}
                 />
               </Tooltip>
-              <Link as={ReachLink} to="/profile">
+              <Link
+                borderRadius="full"
+                as={ReachLink}
+                to={`/profile/${user._id}`}
+              >
                 <Tooltip label="Profile" fontSize="md">
                   <Avatar
                     h="35px"
                     w="35px"
                     borderRadius="full"
                     name={user.firstName + " " + user.lastName}
-                    src={user.imageSrc}
+                    src={user.avatarURL}
                   />
                 </Tooltip>
               </Link>
