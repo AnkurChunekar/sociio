@@ -9,29 +9,18 @@ import {
   Heading,
   HStack,
   IconButton,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Button,
-  Textarea,
-  Input,
-  FormLabel,
   Tooltip,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { AiFillHome, AiOutlineHome } from "react-icons/ai";
-import { BiImage } from "react-icons/bi";
 import {
   MdOutlineExplore,
   MdExplore,
   MdBookmark,
   MdOutlineBookmarkBorder,
 } from "react-icons/md";
+import { PostModal } from "components";
 
 const linkData = [
   {
@@ -104,7 +93,7 @@ export const Navbar = () => {
               <Link
                 borderRadius="full"
                 as={ReachLink}
-                to={`/profile/${user._id}`}
+                to={`/profile/${user.username}`}
               >
                 <Tooltip label="Profile" fontSize="md">
                   <Avatar
@@ -122,38 +111,7 @@ export const Navbar = () => {
       </Box>
 
       {/* Modal */}
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create Post</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Textarea
-              resize={"none"}
-              placeholder="What's happening?"
-              maxLength="200"
-              _focus={{ border: "none" }}
-            />
-          </ModalBody>
-          <ModalFooter justifyContent="flex-start">
-            <FormLabel cursor="pointer">
-              <Input
-                accept="image/*"
-                type="file"
-                position="absolute"
-                bgColor="red.100"
-                p="0"
-                visibility="hidden"
-              />
-              <BiImage fontSize="32px" />
-            </FormLabel>
-            <Button marginLeft={"auto"} mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme={"blue"}>Create</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <PostModal isOpen={isOpen} onClose={onClose}  />
     </>
   );
 };
