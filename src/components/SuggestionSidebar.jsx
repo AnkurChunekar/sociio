@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   VStack,
   Heading,
@@ -9,17 +10,18 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { Fragment } from "react";
 
-const SuggestedProfile = () => {
+const SuggestedProfile = ({ profileData }) => {
   return (
     <Flex w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
-      <Avatar size="sm" src="https://bit.ly/dan-abramov" />
+      <Avatar size="sm" src={profileData.avatarURL} />
       <Box>
         <Text fontWeight={"600"} lineHeight="1">
-          Dan Abramov
+          {profileData.firstName + " " + profileData.lastName}
         </Text>
         <Text fontSize={"sm"} color="var(--chakra-colors-gray-500)">
-          @dansbramov
+          @{profileData.username}
         </Text>
       </Box>
       <Tooltip label="Follow" fontSize="md">
@@ -36,6 +38,9 @@ const SuggestedProfile = () => {
 };
 
 export const SuggestionSidebar = () => {
+  const { usersData } = useSelector((state) => state.users);
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <VStack
       borderRadius={"lg"}
@@ -54,10 +59,13 @@ export const SuggestionSidebar = () => {
         Suggested For You
       </Heading>
       <VStack gap={2}>
-        <SuggestedProfile />
-        <SuggestedProfile />
-        <SuggestedProfile />
-        <SuggestedProfile />
+        {usersData.map((item) =>
+          item._id !== user._id ? (
+            <Fragment key={item._id}>
+              <SuggestedProfile profileData={item} />
+            </Fragment>
+          ) : null
+        )}
       </VStack>
     </VStack>
   );

@@ -1,9 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Button, Text, VStack, Link, HStack } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { PostCard, EditProfileModal } from "components";
 import { logout } from "redux/slices/authSlice";
+import { getUserService } from "services";
 
 export const Profile = () => {
   const {
@@ -11,19 +13,28 @@ export const Profile = () => {
     onOpen: onOpenProfile,
     onClose: onCloseProfile,
   } = useDisclosure();
+  const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const { username } = useParams();
+
+  useEffect(() => {
+    getUserService(username, setUser);
+  }, [username]);
 
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
 
-  return (
+  return user ? (
     <VStack flexGrow={1} maxW="600px">
-      <Avatar size="2xl" name={user.firstName + " " + user.lastName} src={user.imageSrc} />
+      <Avatar
+        size="2xl"
+        name={user.firstName + " " + user.lastName}
+        src={user.avatarURL}
+      />
       <Text fontWeight={700} fontSize="xl">
         {user.firstName} {user.lastName}
       </Text>
@@ -36,17 +47,18 @@ export const Profile = () => {
           Logout
         </Button>
       </HStack>
-      <Text textAlign={"center"}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias
-        quibusdam fuga molestiae asperiores impedit omnis.
-      </Text>
-      <Link color={"blue.500"} href="https://github.com/AnkurChunekar" isExternal>
-        view github profile
+      <Text textAlign={"center"}>{user.bio}</Text>
+      <Link
+        color={"blue.500"}
+        href="https://github.com/AnkurChunekar"
+        isExternal
+      >
+        {user.username + ".com"}
       </Link>
 
       <HStack maxW={"500px"} bg="white" borderRadius="lg">
         <VStack py="3" px="5">
-          <Text fontWeight="700">0</Text>
+          <Text fontWeight="700">{user.following.length}</Text>
           <Text>Following</Text>
         </VStack>
         <VStack py="3" px="5">
@@ -54,7 +66,7 @@ export const Profile = () => {
           <Text>Posts</Text>
         </VStack>
         <VStack py="3" px="5">
-          <Text fontWeight="700">37.3k</Text>
+          <Text fontWeight="700">{user.followers.length}</Text>
           <Text>Followers</Text>
         </VStack>
       </HStack>
@@ -75,5 +87,7 @@ export const Profile = () => {
         onCloseProfile={onCloseProfile}
       />
     </VStack>
+  ) : (
+    <Text>...Fetching User Details</Text>
   );
 };
