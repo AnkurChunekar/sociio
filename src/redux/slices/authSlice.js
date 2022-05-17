@@ -18,6 +18,9 @@ const authSlice = createSlice({
       localStorage.removeItem("user");
       state.isLoading = false;
     },
+    setAuthLoading: (state) => {
+      state.isLoading = true;
+    }
   },
   extraReducers: {
     [login.pending]: (state) => {
@@ -58,6 +61,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setAuthLoading } = authSlice.actions;
 
 export default authSlice.reducer;
