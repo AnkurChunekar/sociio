@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
+import { Link as ReachLink } from "react-router-dom";
 import {
   VStack,
+  HStack,
   Heading,
   Text,
   Avatar,
@@ -8,6 +10,7 @@ import {
   IconButton,
   Flex,
   Tooltip,
+  Link,
 } from "@chakra-ui/react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { Fragment } from "react";
@@ -15,15 +18,20 @@ import { Fragment } from "react";
 const SuggestedProfile = ({ profileData }) => {
   return (
     <Flex w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
-      <Avatar size="sm" src={profileData.avatarURL} />
-      <Box>
-        <Text fontWeight={"600"} lineHeight="1">
-          {profileData.firstName + " " + profileData.lastName}
-        </Text>
-        <Text fontSize={"sm"} color="var(--chakra-colors-gray-500)">
-          @{profileData.username}
-        </Text>
-      </Box>
+      <Link _hover={{"text-decoration": "none"}} as={ReachLink} to={`/profile/${profileData._id}`}>
+        <HStack w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
+          <Avatar size="sm" src={profileData.avatarURL} />
+          <Box>
+            <Text fontWeight={"600"} lineHeight="1">
+              {profileData.firstName + " " + profileData.lastName}
+            </Text>
+            <Text fontSize={"sm"} color="var(--chakra-colors-gray-500)">
+              @{profileData.username}
+            </Text>
+          </Box>
+        </HStack>
+      </Link>
+
       <Tooltip label="Follow" fontSize="md">
         <IconButton
           borderRadius="full"

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Button, Text, VStack, Link, HStack } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
@@ -15,6 +15,7 @@ export const Profile = () => {
   } = useDisclosure();
   const [userData, setUserData] = useState(null);
 
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
@@ -39,20 +40,20 @@ export const Profile = () => {
         {userData.firstName} {userData.lastName}
       </Text>
       <Text color={"gray.600"}>@{userData.username}</Text>
-      <HStack>
-        <Button onClick={onOpenProfile} colorScheme={"blue"}>
-          Edit Profile
-        </Button>
-        <Button onClick={handleLogout} colorScheme={"red"}>
-          Logout
-        </Button>
-      </HStack>
+      
+      {user._id === userData._id ? (
+        <HStack>
+          <Button onClick={onOpenProfile} colorScheme={"blue"}>
+            Edit Profile
+          </Button>
+          <Button onClick={handleLogout} colorScheme={"red"}>
+            Logout
+          </Button>
+        </HStack>
+      ) : null}
+
       <Text textAlign={"center"}>{userData.bio}</Text>
-      <Link
-        color={"blue.500"}
-        href={userData.website}
-        isExternal
-      >
+      <Link color={"blue.500"} href={userData.website} isExternal>
         {userData.website.replace("https://", "")}
       </Link>
 
