@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Modal,
@@ -20,6 +20,7 @@ import {
 import { AiFillCamera } from "react-icons/ai";
 import { editUser } from "redux/asyncThunks";
 import { saveAvatarToCloudinaryService } from "services";
+import { setAuthLoading } from "redux/slices/authSlice";
 
 export const EditProfileModal = ({
   isOpenProfile,
@@ -59,10 +60,12 @@ export const EditProfileModal = ({
   const editUserHandler = async (e) => {
     e.preventDefault();
     try {
-      if (inputData.avatarURL !== "")
+      if (inputData.avatarURL !== "") {
+        dispatch(setAuthLoading());
         await saveAvatarToCloudinaryService(inputData.avatarFile, setInputData);
-      
-        const data = {
+      }
+
+      const data = {
         avatarURL: inputData.avatarURL || userData.avatarURL,
         website: inputData.website,
         bio: inputData.bio,
@@ -77,6 +80,10 @@ export const EditProfileModal = ({
       onCloseProfile();
     }
   };
+
+  useEffect(() => {
+    setInputData({ ...userData, avatarURL: "", avatarFile: {} });
+  }, [userData]);
 
   return (
     <Modal isOpen={isOpenProfile} onClose={closeModalHandler}>
@@ -129,7 +136,7 @@ export const EditProfileModal = ({
               <Input
                 type="text"
                 placeholder="add a website here"
-                value={userData.website}
+                value={inputData.website}
                 name="website"
                 onChange={updateUserInput}
                 borderColor="var(--chakra-colors-gray-300)"
@@ -149,7 +156,7 @@ export const EditProfileModal = ({
                 borderRadius={"md"}
                 name="bio"
                 placeholder="Add a bio here"
-                value={userData.bio}
+                value={inputData.bio}
                 onChange={updateUserInput}
                 resize="none"
                 _hover={{
