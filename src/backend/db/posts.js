@@ -62,7 +62,7 @@ export const posts = [
         username: "segunadebayo",
         avatarURL:
           "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
-        text: "johndoe",
+        text: "often overlooked",
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -76,7 +76,7 @@ export const posts = [
         username: "johndoe",
         avatarURL:
           "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
-        text: "Wow!",
+        text: "yes you are right!",
         votes: {
           upvotedBy: [],
           downvotedBy: [],
