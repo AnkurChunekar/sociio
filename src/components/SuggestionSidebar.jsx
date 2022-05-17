@@ -18,7 +18,7 @@ import { Fragment } from "react";
 const SuggestedProfile = ({ profileData }) => {
   return (
     <Flex w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
-      <Link _hover={{"textDecoration": "none"}} as={ReachLink} to={`/profile/${profileData._id}`}>
+      <Link _hover={{"textDecoration": "none"}} as={ReachLink} to={`/profile/${profileData.username}`}>
         <HStack w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
           <Avatar size="sm" src={profileData.avatarURL} />
           <Box>
