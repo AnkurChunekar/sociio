@@ -129,7 +129,7 @@ export const EditProfileModal = ({
               <Input
                 type="text"
                 placeholder="add a website here"
-                value={inputData.website}
+                value={userData.website}
                 name="website"
                 onChange={updateUserInput}
                 borderColor="var(--chakra-colors-gray-300)"
@@ -149,7 +149,7 @@ export const EditProfileModal = ({
                 borderRadius={"md"}
                 name="bio"
                 placeholder="Add a bio here"
-                value={inputData.bio}
+                value={userData.bio}
                 onChange={updateUserInput}
                 resize="none"
                 _hover={{
