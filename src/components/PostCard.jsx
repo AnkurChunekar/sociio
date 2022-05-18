@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link as ReachLink } from "react-router-dom";
 import {
   Avatar,
   Flex,
@@ -16,6 +17,7 @@ import {
   MenuList,
   MenuItem,
   useDisclosure,
+  Link,
 } from "@chakra-ui/react";
 import { AiOutlineEllipsis, AiOutlineHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
@@ -49,15 +51,17 @@ export const PostCard = ({ postData }) => {
       w="100%"
     >
       <Flex alignItems={"center"} gap="2" w="full" px="2">
-        <Avatar size="sm" src={avatarURL} />
-        <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
-          <Text fontWeight={"600"} fontSize="lg">
-            {postData.firstName + " " + postData.lastName}
-          </Text>
-          <Text color="var(--chakra-colors-gray-500)">
-            @{postData.username}
-          </Text>
-        </HStack>
+        <Link as={ReachLink} display={"flex"} gap="2" alignItems="center" _hover={{textDecoration: "none"}} to={`/profile/${postData.username}`}>
+          <Avatar size="sm" src={avatarURL} />
+          <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
+            <Text fontWeight={"600"} fontSize="lg">
+              {postData.firstName + " " + postData.lastName}
+            </Text>
+            <Text color="var(--chakra-colors-gray-500)">
+              @{postData.username}
+            </Text>
+          </HStack>
+        </Link>
 
         {/* ellipsis menu */}
         {isCurrentUsersPost ? (
@@ -113,7 +117,7 @@ export const PostCard = ({ postData }) => {
         <HStack>
           <Tooltip label="Comment" fontSize="md">
             <IconButton
-            onClick={() => setShowCommentsSection(prev => !prev)}
+              onClick={() => setShowCommentsSection((prev) => !prev)}
               backgroundColor={"transparent"}
               fontSize="22px"
               size={"xs"}
