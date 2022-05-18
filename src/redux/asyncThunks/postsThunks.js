@@ -94,6 +94,7 @@ export const dislikePost = createAsyncThunk(
         { headers: { authorization: token } }
       );
       const data = { data: response.data, status: response.status };
+      // console.log(data, "response");
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -102,7 +103,7 @@ export const dislikePost = createAsyncThunk(
 );
 
 export const bookmarkPost = createAsyncThunk(
-  "posts/dislikePost",
+  "posts/bookmarkPost",
   async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
@@ -119,7 +120,7 @@ export const bookmarkPost = createAsyncThunk(
 );
 
 export const removePostFromBookmark = createAsyncThunk(
-  "posts/dislikePost",
+  "posts/removePostFromBookmark",
   async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(

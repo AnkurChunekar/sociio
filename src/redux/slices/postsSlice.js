@@ -86,9 +86,8 @@ const postsSlice = createSlice({
       state.status = "failed"
       console.error(action);
     },
-    [bookmarkPost.fulfilled]: (state, action) => {
+    [bookmarkPost.fulfilled]: (state) => {
       state.status = "succeeded"
-      state.posts = action.payload.data.posts;
     },
     [bookmarkPost.pending]: (state) => {
       state.status = "loading"
@@ -97,9 +96,8 @@ const postsSlice = createSlice({
       state.status = "failed"
       console.error(action);
     },
-    [removePostFromBookmark.fulfilled]: (state, action) => {
+    [removePostFromBookmark.fulfilled]: (state) => {
       state.status = "succeeded"
-      state.posts = action.payload.data.posts;
     },
     [removePostFromBookmark.pending]: (state) => {
       state.status = "loading"
