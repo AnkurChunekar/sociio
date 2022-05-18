@@ -6,6 +6,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import { PostCard, EditProfileModal } from "components";
 import { logout } from "redux/slices/authSlice";
 import { getUserService } from "services";
+import { editUser, followUser, unfollowUser } from "redux/asyncThunks";
 
 export const Profile = () => {
   const {
@@ -15,15 +16,19 @@ export const Profile = () => {
   } = useDisclosure();
   const [userData, setUserData] = useState(null);
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
+  const { status } = useSelector((state) => state.users);
   const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
-
+  const isFollowedByUser = user.following.some(
+    (item) => item.username === userData?.username
+  );
+  
   useEffect(() => {
     getUserService(username, setUserData);
-  }, [username]);
+  }, [username, user]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -32,6 +37,19 @@ export const Profile = () => {
 
   const currentUsersPosts =
     userData && posts.filter((item) => item.username === userData.username);
+
+  const followClickHandler = async () => {
+    try {
+      const response = await dispatch(
+        isFollowedByUser
+          ? unfollowUser({ followUserId: userData._id, token })
+          : followUser({ followUserId: userData._id, token })
+      );
+      dispatch(editUser({ userData: response.payload.data.user, token }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return userData ? (
     <VStack flexGrow={1} maxW="600px">
@@ -54,7 +72,17 @@ export const Profile = () => {
             Logout
           </Button>
         </HStack>
-      ) : null}
+      ) : (
+        <Button
+          isDisabled={status === "loading"}
+          isLoading={status === "loading"}
+          onClick={followClickHandler}
+          colorScheme={"blue"}
+          variant={isFollowedByUser ? "outline" : "solid"}
+        >
+          {isFollowedByUser ? "Unfollow" : "Follow"}
+        </Button>
+      )}
 
       <Text textAlign={"center"}>{userData.bio}</Text>
       <Link color={"blue.500"} href={userData.website} isExternal>
@@ -67,7 +95,7 @@ export const Profile = () => {
           <Text>Following</Text>
         </VStack>
         <VStack py="3" px="5">
-          <Text fontWeight="700">0</Text>
+          <Text fontWeight="700">{currentUsersPosts.length}</Text>
           <Text>Posts</Text>
         </VStack>
         <VStack py="3" px="5">
