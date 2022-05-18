@@ -33,6 +33,23 @@ const signup = createAsyncThunk(
   }
 );
 
+const getAuthUser = createAsyncThunk(
+  "auth/getUser",
+  async ({ username }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/api/users/${username}`);
+      const data = { data: response.data, status: response.status };
+      console.log("done",  data);
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
 const editUser = createAsyncThunk(
   "auth/edit",
   async ({ userData, token }, { rejectWithValue }) => {
@@ -53,4 +70,4 @@ const editUser = createAsyncThunk(
   }
 );
 
-export { login, signup, editUser };
+export { login, signup, editUser, getAuthUser };
