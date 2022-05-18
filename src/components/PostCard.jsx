@@ -80,7 +80,7 @@ export const PostCard = ({ postData }) => {
       flexGrow={1}
       w="100%"
     >
-      <Flex alignItems={"center"} gap="2" w="full" px="2">
+      <Flex alignItems={"center"} justifyContent="space-between" gap="2" w="full" px="2">
         <Link
           as={ReachLink}
           display={"flex"}
