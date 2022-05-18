@@ -65,21 +65,16 @@ export const EditProfileModal = ({
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      onCloseProfile();
     }
   };
 
   const updateUserClickHandler = (e) => {
     e.preventDefault();
-
-    if (inputData.avatarURL !== "") {
-      dispatch(setAuthLoading());
-      saveAvatarToCloudinaryService(
-        inputData.avatarFile,
-        editUserHandler,
-        inputData,
-        onCloseProfile
-      );
-    }
+    const oldAvatarURL = userData.avatarURL;
+    dispatch(setAuthLoading());
+    saveAvatarToCloudinaryService(editUserHandler, inputData, oldAvatarURL);
   };
 
   useEffect(() => {
