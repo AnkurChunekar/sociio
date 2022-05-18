@@ -22,15 +22,20 @@ import {
 import { AiOutlineEllipsis, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { VscComment } from "react-icons/vsc";
-import { deletePost, dislikePost, likePost } from "redux/asyncThunks";
+import {
+  bookmarkPost,
+  deletePost,
+  dislikePost,
+  getAuthUser,
+  likePost,
+  removePostFromBookmark,
+} from "redux/asyncThunks";
 import { PostModal } from "./PostModal";
 
 export const PostCard = ({ postData }) => {
   const { user, token } = useSelector((state) => state.auth);
-  const { status: likeStatus } = useSelector((state) => state.posts);
   const { onOpen, isOpen, onClose } = useDisclosure();
   const [showCommentsSection, setShowCommentsSection] = useState(false);
-
   const dispatch = useDispatch();
   if (postData === undefined) {
     return;
@@ -44,10 +49,24 @@ export const PostCard = ({ postData }) => {
     (item) => item.username === user.username
   );
 
+  const isBookmarkedByUser = user.bookmarks.some((id) => id === postData._id);
+
   const likeClickHandler = () => {
-    isLikedByUser
-      ? dispatch(dislikePost({ postId: postData._id, token }))
-      : dispatch(likePost({ postId: postData._id, token }));
+    if (isLikedByUser) {
+     dispatch(dislikePost({ postId: postData._id, token }));
+    } else {
+      dispatch(likePost({ postId: postData._id, token }));
+    }
+  };
+
+  const bookmarkClickHandler = async () => {
+    if (isBookmarkedByUser) {
+      await dispatch(removePostFromBookmark({ postId: postData._id, token }));
+      dispatch(getAuthUser({ username: user.username }));
+    } else {
+      await dispatch(bookmarkPost({ postId: postData._id, token }));
+      dispatch(getAuthUser({ username: user.username }));
+    }
   };
 
   return (
@@ -153,12 +172,14 @@ export const PostCard = ({ postData }) => {
         <HStack>
           <Tooltip label="Bookmark" fontSize="md">
             <IconButton
+              onClick={bookmarkClickHandler}
               backgroundColor={"transparent"}
+              color={isBookmarkedByUser ? "blue.400" : "black"}
               fontSize="20px"
               size={"xs"}
               py="2"
               borderRadius={"full"}
-              icon={<BsBookmark />}
+              icon={isBookmarkedByUser ? <BsBookmarkFill /> : <BsBookmark />}
             />
           </Tooltip>
         </HStack>
@@ -167,7 +188,9 @@ export const PostCard = ({ postData }) => {
       {postData.likes.likeCount > 0 ? (
         <Text color={"gray"} fontSize={"sm"} px="2">
           Liked by {postData.likes.likedBy[0].username}
-          {postData.likes.likeCount > 1 ? ` and ${postData.likes.likeCount - 1} others` : ""} 
+          {postData.likes.likeCount > 1
+            ? ` and ${postData.likes.likeCount - 1} others`
+            : ""}
         </Text>
       ) : null}
 
