@@ -19,14 +19,15 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import { AiOutlineEllipsis, AiOutlineHeart } from "react-icons/ai";
-import { BsBookmark } from "react-icons/bs";
+import { AiOutlineEllipsis, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { VscComment } from "react-icons/vsc";
-import { deletePost } from "redux/asyncThunks";
+import { deletePost, dislikePost, likePost } from "redux/asyncThunks";
 import { PostModal } from "./PostModal";
 
 export const PostCard = ({ postData }) => {
   const { user, token } = useSelector((state) => state.auth);
+  const { status: likeStatus } = useSelector((state) => state.posts);
   const { onOpen, isOpen, onClose } = useDisclosure();
   const [showCommentsSection, setShowCommentsSection] = useState(false);
 
@@ -38,6 +39,16 @@ export const PostCard = ({ postData }) => {
   const isCurrentUsersPost = user.username === postData.username;
   const avatarURL =
     postData.username === user.username ? user.avatarURL : postData.avatarURL;
+
+  const isLikedByUser = postData.likes.likedBy.some(
+    (item) => item.username === user.username
+  );
+
+  const likeClickHandler = () => {
+    isLikedByUser
+      ? dispatch(dislikePost({ postId: postData._id, token }))
+      : dispatch(likePost({ postId: postData._id, token }));
+  };
 
   return (
     <VStack
@@ -51,7 +62,14 @@ export const PostCard = ({ postData }) => {
       w="100%"
     >
       <Flex alignItems={"center"} gap="2" w="full" px="2">
-        <Link as={ReachLink} display={"flex"} gap="2" alignItems="center" _hover={{textDecoration: "none"}} to={`/profile/${postData.username}`}>
+        <Link
+          as={ReachLink}
+          display={"flex"}
+          gap="2"
+          alignItems="center"
+          _hover={{ textDecoration: "none" }}
+          to={`/profile/${postData.username}`}
+        >
           <Avatar size="sm" src={avatarURL} />
           <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
             <Text fontWeight={"600"} fontSize="lg">
@@ -103,12 +121,15 @@ export const PostCard = ({ postData }) => {
         <HStack>
           <Tooltip label="Like" fontSize="md">
             <IconButton
+              onClick={likeClickHandler}
+              // isDisabled={likeStatus === "loading"}
               backgroundColor={"transparent"}
+              color={isLikedByUser ? "red.500" : "black"}
               fontSize="22px"
               size={"xs"}
               py="2"
               borderRadius={"full"}
-              icon={<AiOutlineHeart />}
+              icon={isLikedByUser ? <AiFillHeart /> : <AiOutlineHeart />}
             />
           </Tooltip>
           <Text>{postData.likes.likeCount}</Text>
