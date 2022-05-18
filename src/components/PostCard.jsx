@@ -19,17 +19,23 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import { AiOutlineEllipsis, AiOutlineHeart } from "react-icons/ai";
-import { BsBookmark } from "react-icons/bs";
+import { AiOutlineEllipsis, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { VscComment } from "react-icons/vsc";
-import { deletePost } from "redux/asyncThunks";
+import {
+  bookmarkPost,
+  deletePost,
+  dislikePost,
+  getAuthUser,
+  likePost,
+  removePostFromBookmark,
+} from "redux/asyncThunks";
 import { PostModal } from "./PostModal";
 
 export const PostCard = ({ postData }) => {
   const { user, token } = useSelector((state) => state.auth);
   const { onOpen, isOpen, onClose } = useDisclosure();
   const [showCommentsSection, setShowCommentsSection] = useState(false);
-
   const dispatch = useDispatch();
   if (postData === undefined) {
     return;
@@ -38,6 +44,30 @@ export const PostCard = ({ postData }) => {
   const isCurrentUsersPost = user.username === postData.username;
   const avatarURL =
     postData.username === user.username ? user.avatarURL : postData.avatarURL;
+
+  const isLikedByUser = postData.likes.likedBy.some(
+    (item) => item.username === user.username
+  );
+
+  const isBookmarkedByUser = user.bookmarks.some((id) => id === postData._id);
+
+  const likeClickHandler = () => {
+    if (isLikedByUser) {
+     dispatch(dislikePost({ postId: postData._id, token }));
+    } else {
+      dispatch(likePost({ postId: postData._id, token }));
+    }
+  };
+
+  const bookmarkClickHandler = async () => {
+    if (isBookmarkedByUser) {
+      await dispatch(removePostFromBookmark({ postId: postData._id, token }));
+      dispatch(getAuthUser({ username: user.username }));
+    } else {
+      await dispatch(bookmarkPost({ postId: postData._id, token }));
+      dispatch(getAuthUser({ username: user.username }));
+    }
+  };
 
   return (
     <VStack
@@ -50,8 +80,15 @@ export const PostCard = ({ postData }) => {
       flexGrow={1}
       w="100%"
     >
-      <Flex alignItems={"center"} gap="2" w="full" px="2">
-        <Link as={ReachLink} display={"flex"} gap="2" alignItems="center" _hover={{textDecoration: "none"}} to={`/profile/${postData.username}`}>
+      <Flex alignItems={"center"} justifyContent="space-between" gap="2" w="full" px="2">
+        <Link
+          as={ReachLink}
+          display={"flex"}
+          gap="2"
+          alignItems="center"
+          _hover={{ textDecoration: "none" }}
+          to={`/profile/${postData.username}`}
+        >
           <Avatar size="sm" src={avatarURL} />
           <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
             <Text fontWeight={"600"} fontSize="lg">
@@ -103,12 +140,15 @@ export const PostCard = ({ postData }) => {
         <HStack>
           <Tooltip label="Like" fontSize="md">
             <IconButton
+              onClick={likeClickHandler}
+              // isDisabled={likeStatus === "loading"}
               backgroundColor={"transparent"}
+              color={isLikedByUser ? "red.500" : "black"}
               fontSize="22px"
               size={"xs"}
               py="2"
               borderRadius={"full"}
-              icon={<AiOutlineHeart />}
+              icon={isLikedByUser ? <AiFillHeart /> : <AiOutlineHeart />}
             />
           </Tooltip>
           <Text>{postData.likes.likeCount}</Text>
@@ -132,16 +172,27 @@ export const PostCard = ({ postData }) => {
         <HStack>
           <Tooltip label="Bookmark" fontSize="md">
             <IconButton
+              onClick={bookmarkClickHandler}
               backgroundColor={"transparent"}
+              color={isBookmarkedByUser ? "blue.400" : "black"}
               fontSize="20px"
               size={"xs"}
               py="2"
               borderRadius={"full"}
-              icon={<BsBookmark />}
+              icon={isBookmarkedByUser ? <BsBookmarkFill /> : <BsBookmark />}
             />
           </Tooltip>
         </HStack>
       </HStack>
+
+      {postData.likes.likeCount > 0 ? (
+        <Text color={"gray"} fontSize={"sm"} px="2">
+          Liked by {postData.likes.likedBy[0].username}
+          {postData.likes.likeCount > 1
+            ? ` and ${postData.likes.likeCount - 1} others`
+            : ""}
+        </Text>
+      ) : null}
 
       {showCommentsSection ? (
         <>

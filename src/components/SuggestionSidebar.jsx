@@ -52,7 +52,6 @@ const SuggestedProfile = ({ profileData, token, status }) => {
       <Tooltip label="Follow" fontSize="md">
         <IconButton
           isDisabled={status === "loading"}
-          // isLoading={status === "loading"}
           borderRadius="full"
           aria-label="follow user"
           size={"sm"}
