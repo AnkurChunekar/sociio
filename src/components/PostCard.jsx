@@ -164,6 +164,13 @@ export const PostCard = ({ postData }) => {
         </HStack>
       </HStack>
 
+      {postData.likes.likeCount > 0 ? (
+        <Text color={"gray"} fontSize={"sm"} px="2">
+          Liked by {postData.likes.likedBy[0].username}
+          {postData.likes.likeCount > 1 ? ` and ${postData.likes.likeCount - 1} others` : ""} 
+        </Text>
+      ) : null}
+
       {showCommentsSection ? (
         <>
           <HStack width={"full"} px="1">
