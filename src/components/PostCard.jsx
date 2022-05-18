@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link as ReachLink } from "react-router-dom";
 import {
   Avatar,
   Flex,
@@ -15,6 +17,7 @@ import {
   MenuList,
   MenuItem,
   useDisclosure,
+  Link,
 } from "@chakra-ui/react";
 import { AiOutlineEllipsis, AiOutlineHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
@@ -25,6 +28,7 @@ import { PostModal } from "./PostModal";
 export const PostCard = ({ postData }) => {
   const { user, token } = useSelector((state) => state.auth);
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const [showCommentsSection, setShowCommentsSection] = useState(false);
 
   const dispatch = useDispatch();
   if (postData === undefined) {
@@ -32,6 +36,8 @@ export const PostCard = ({ postData }) => {
   }
 
   const isCurrentUsersPost = user.username === postData.username;
+  const avatarURL =
+    postData.username === user.username ? user.avatarURL : postData.avatarURL;
 
   return (
     <VStack
@@ -45,15 +51,17 @@ export const PostCard = ({ postData }) => {
       w="100%"
     >
       <Flex alignItems={"center"} gap="2" w="full" px="2">
-        <Avatar size="sm" src={postData.avatarURL} />
-        <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
-          <Text fontWeight={"600"} fontSize="lg">
-            {postData.firstName + " " + postData.lastName}
-          </Text>
-          <Text color="var(--chakra-colors-gray-500)">
-            @{postData.username}
-          </Text>
-        </HStack>
+        <Link as={ReachLink} display={"flex"} gap="2" alignItems="center" _hover={{textDecoration: "none"}} to={`/profile/${postData.username}`}>
+          <Avatar size="sm" src={avatarURL} />
+          <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
+            <Text fontWeight={"600"} fontSize="lg">
+              {postData.firstName + " " + postData.lastName}
+            </Text>
+            <Text color="var(--chakra-colors-gray-500)">
+              @{postData.username}
+            </Text>
+          </HStack>
+        </Link>
 
         {/* ellipsis menu */}
         {isCurrentUsersPost ? (
@@ -109,6 +117,7 @@ export const PostCard = ({ postData }) => {
         <HStack>
           <Tooltip label="Comment" fontSize="md">
             <IconButton
+              onClick={() => setShowCommentsSection((prev) => !prev)}
               backgroundColor={"transparent"}
               fontSize="22px"
               size={"xs"}
@@ -117,7 +126,7 @@ export const PostCard = ({ postData }) => {
               icon={<VscComment />}
             />
           </Tooltip>
-          {/* <Text>{postData.comments.length}</Text> */}
+          <Text>{postData.comments.length}</Text>
         </HStack>
 
         <HStack>
@@ -133,12 +142,40 @@ export const PostCard = ({ postData }) => {
           </Tooltip>
         </HStack>
       </HStack>
-      <HStack width={"full"} px="1">
-        <Input flexGrow={1} placeholder="Add a comment" size="sm" />
-        <Button variant={"ghost"} colorScheme="blue" size="sm">
-          Post
-        </Button>
-      </HStack>
+
+      {showCommentsSection ? (
+        <>
+          <HStack width={"full"} px="1">
+            <Input flexGrow={1} placeholder="Add a comment" size="sm" />
+            <Button variant={"ghost"} colorScheme="blue" size="sm">
+              Post
+            </Button>
+          </HStack>
+
+          {postData.comments.map((item) => (
+            <HStack
+              key={item._id}
+              alignItems={"center"}
+              flexGrow="1"
+              px="2"
+              flexWrap={"wrap"}
+            >
+              <Avatar
+                size="xs"
+                src={
+                  item.username === user.username
+                    ? user.avatarURL
+                    : item.avatarURL
+                }
+              />
+              <Text fontWeight={"600"} fontSize="15px">
+                {item.firstName + " " + item.lastName}
+              </Text>
+              <Text fontSize="15px">{item.text}</Text>
+            </HStack>
+          ))}
+        </>
+      ) : null}
 
       {isCurrentUsersPost ? (
         <PostModal
@@ -148,16 +185,6 @@ export const PostCard = ({ postData }) => {
           editPostData={postData}
         />
       ) : null}
-
-      {/* {postData.comments.map((item) => (
-        <HStack key={item._id} alignItems={"center"} flexGrow="1" px="2" flexWrap={"wrap"}>
-          <Avatar size="xs" src={item.avatarURL} />
-          <Text fontWeight={"600"} fontSize="15px">
-            {item.firstName + " " + item.lastName}
-          </Text>
-          <Text fontSize="15px">{item.text}</Text>
-        </HStack>
-      ))} */}
     </VStack>
   );
 };

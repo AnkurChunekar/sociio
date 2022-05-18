@@ -65,8 +65,17 @@ export const Navbar = () => {
           <Link as={ReachLink} _hover={{ textDecoration: "none" }} to="/home">
             <Heading as="h2">Sociio</Heading>
           </Link>
+
           {user ? (
             <HStack alignItems={"center"} gap={{ base: 0.5, sm: 1, md: 2 }}>
+              <Tooltip label="Create Post" fontSize="md">
+                <IconButton
+                  onClick={onOpen}
+                  borderRadius="full"
+                  icon={<IoMdAddCircleOutline size="22px" w="25px" h="25px" />}
+                />
+              </Tooltip>
+
               {linkData.map((item) => (
                 <Link key={item.id} as={ReachLink} to={item.pathname}>
                   <Tooltip label={item.tooltipText}>
@@ -83,13 +92,6 @@ export const Navbar = () => {
                   </Tooltip>
                 </Link>
               ))}
-              <Tooltip label="Create Post" fontSize="md">
-                <IconButton
-                  onClick={onOpen}
-                  borderRadius="full"
-                  icon={<IoMdAddCircleOutline size="22px" w="25px" h="25px" />}
-                />
-              </Tooltip>
               <Link
                 borderRadius="full"
                 as={ReachLink}
@@ -111,7 +113,7 @@ export const Navbar = () => {
       </Box>
 
       {/* Modal */}
-      <PostModal isOpen={isOpen} onClose={onClose}  />
+      <PostModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

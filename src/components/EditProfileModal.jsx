@@ -57,19 +57,8 @@ export const EditProfileModal = ({
     onCloseProfile();
   };
 
-  const editUserHandler = async (e) => {
-    e.preventDefault();
+  const editUserHandler = async (data) => {
     try {
-      if (inputData.avatarURL !== "") {
-        dispatch(setAuthLoading());
-        await saveAvatarToCloudinaryService(inputData.avatarFile, setInputData);
-      }
-
-      const data = {
-        avatarURL: inputData.avatarURL || userData.avatarURL,
-        website: inputData.website,
-        bio: inputData.bio,
-      };
       const response = await dispatch(editUser({ userData: data, token }));
       if (response.payload.status === 201) {
         setUserData(response.payload.data.user);
@@ -81,6 +70,13 @@ export const EditProfileModal = ({
     }
   };
 
+  const updateUserClickHandler = (e) => {
+    e.preventDefault();
+    const oldAvatarURL = userData.avatarURL;
+    dispatch(setAuthLoading());
+    saveAvatarToCloudinaryService(editUserHandler, inputData, oldAvatarURL);
+  };
+
   useEffect(() => {
     setInputData({ ...userData, avatarURL: "", avatarFile: {} });
   }, [userData]);
@@ -88,7 +84,7 @@ export const EditProfileModal = ({
   return (
     <Modal isOpen={isOpenProfile} onClose={closeModalHandler}>
       <ModalOverlay />
-      <ModalContent as="form" onSubmit={editUserHandler}>
+      <ModalContent as="form" onSubmit={updateUserClickHandler}>
         <ModalHeader>Edit Profile</ModalHeader>
         <ModalCloseButton />
         <ModalBody>

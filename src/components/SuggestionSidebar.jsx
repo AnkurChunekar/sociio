@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Fragment } from "react";
 import { Link as ReachLink } from "react-router-dom";
 import {
   VStack,
@@ -13,20 +14,36 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { Fragment } from "react";
+import { followUser, editUser } from "redux/asyncThunks";
 
-const SuggestedProfile = ({ profileData }) => {
+const SuggestedProfile = ({ profileData, token, status }) => {
+  const { username, avatarURL, firstName, lastName, _id } = profileData;
+  const dispatch = useDispatch();
+
+  const followUserHandler = async () => {
+    try {
+      const response = await dispatch(followUser({ followUserId: _id, token }));
+      dispatch(editUser({ userData: response.payload.data.user, token }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Flex w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
-      <Link _hover={{"textDecoration": "none"}} as={ReachLink} to={`/profile/${profileData.username}`}>
+      <Link
+        _hover={{ textDecoration: "none" }}
+        as={ReachLink}
+        to={`/profile/${username}`}
+      >
         <HStack w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
-          <Avatar size="sm" src={profileData.avatarURL} />
+          <Avatar size="sm" src={avatarURL} />
           <Box>
             <Text fontWeight={"600"} lineHeight="1">
-              {profileData.firstName + " " + profileData.lastName}
+              {firstName + " " + lastName}
             </Text>
             <Text fontSize={"sm"} color="var(--chakra-colors-gray-500)">
-              @{profileData.username}
+              @{username}
             </Text>
           </Box>
         </HStack>
@@ -34,10 +51,13 @@ const SuggestedProfile = ({ profileData }) => {
 
       <Tooltip label="Follow" fontSize="md">
         <IconButton
+          isDisabled={status === "loading"}
+          // isLoading={status === "loading"}
           borderRadius="full"
-          aria-label="Search database"
+          aria-label="follow user"
           size={"sm"}
           marginLeft="auto"
+          onClick={followUserHandler}
           icon={<AiOutlineUserAdd size="20px" />}
         />
       </Tooltip>
@@ -46,8 +66,17 @@ const SuggestedProfile = ({ profileData }) => {
 };
 
 export const SuggestionSidebar = () => {
-  const { usersData } = useSelector((state) => state.users);
-  const { user } = useSelector((state) => state.auth);
+  const { usersData, status } = useSelector((state) => state.users);
+  const { user, token } = useSelector((state) => state.auth);
+
+  const getSuggestedUsers = () =>
+    usersData.filter(
+      (item) =>
+        item.username !== user.username &&
+        !user.following.some((el) => el.username === item.username)
+    );
+
+  const suggestedUsers = getSuggestedUsers();
 
   return (
     <VStack
@@ -67,12 +96,18 @@ export const SuggestionSidebar = () => {
         Suggested For You
       </Heading>
       <VStack gap={2}>
-        {usersData.map((item) =>
-          item._id !== user._id ? (
+        {suggestedUsers.length > 0 ? (
+          suggestedUsers.map((item) => (
             <Fragment key={item._id}>
-              <SuggestedProfile profileData={item} />
+              <SuggestedProfile
+                profileData={item}
+                token={token}
+                status={status}
+              />
             </Fragment>
-          ) : null
+          ))
+        ) : (
+          <Text>You have followed all the suggested users 🥳</Text>
         )}
       </VStack>
     </VStack>

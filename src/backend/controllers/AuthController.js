@@ -45,7 +45,7 @@ export const signupHandler = function (schema, request) {
       following: [],
       bookmarks: [],
       bio: "",
-      portfolio: "",
+      website: "",
       avatarURL: "",
     };
     const createdUser = schema.users.create(newUser);
