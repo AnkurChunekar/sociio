@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
-import { Box, Text, VStack } from "@chakra-ui/react";
+import { Link as ReachLink } from "react-router-dom";
+import { Box, Text, VStack, Button } from "@chakra-ui/react";
 import { PostCard } from "components";
 import { Fragment } from "react";
 
@@ -11,7 +12,7 @@ export const Bookmark = () => {
   );
 
   return (
-    <Box minH={"90vh"} w="full" maxW={"500px"}>
+    <Box minH={"85vh"} w="full" maxW={"500px"}>
       <VStack gap={5} w="full">
         {bookmarkedPosts.length > 0 ? (
           bookmarkedPosts.map((item) => (
@@ -20,7 +21,16 @@ export const Bookmark = () => {
             </Fragment>
           ))
         ) : (
-          <Text>You haven't Bookmarked any post 😓</Text>
+          <VStack>
+            <Text fontWeight={"600"}>You haven't Bookmarked any post 😓</Text>
+            <Button
+              as={ReachLink}
+              to="/home"
+              colorScheme={"blue"}
+            >
+              See All Posts
+            </Button>
+          </VStack>
         )}
       </VStack>
     </Box>
