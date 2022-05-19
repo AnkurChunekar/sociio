@@ -33,8 +33,13 @@ export const PostModal = ({
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(false);
-  const initialFileData = { fileURL: "", file: {} };
+  const initialFileData = { fileURL: editPostData.fileURL || "", file: {} };
   const [fileData, setFileData] = useState(initialFileData);
+
+  const closeModalHandler = () => {
+    !editMode && setPostData({ content: "" });
+    onClose();
+  };
 
   let reader = new FileReader();
 
@@ -54,7 +59,7 @@ export const PostModal = ({
       const data = {
         ...editPostData,
         content: postData.content,
-        fileURL: fileURL || postData.fileURL || "",
+        fileURL: fileURL || fileData.fileURL || "",
       };
       dispatch(
         editPost({
@@ -65,14 +70,15 @@ export const PostModal = ({
     } else {
       const data = {
         ...postData,
-        fileURL: fileURL || postData.fileURL || "",
+        fileURL: fileURL || fileData.fileURL || "",
       };
 
       dispatch(createPost({ postData: data, token }));
     }
     setFileData(initialFileData);
+
     setLoading(false);
-    onClose();
+    closeModalHandler();
   };
 
   const savePostHandler = () => {
@@ -82,12 +88,12 @@ export const PostModal = ({
       fileURL: fileData.fileURL,
       file: fileData.file,
     };
-    const oldAvatarURL = postData.fileURL || "";
+    const oldAvatarURL = fileData.fileURL || "";
     saveFileToCloudinary(createOrEditPostHandler, data, oldAvatarURL);
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={closeModalHandler}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader> {editMode ? "Edit" : "Create"} Post</ModalHeader>
@@ -135,16 +141,17 @@ export const PostModal = ({
                 <IconButton
                   icon={<GrFormClose />}
                   fontSize="25px"
-                  onClick={() => setFileData(initialFileData)}
+                  onClick={() => setFileData({ fileURL: "", fileData: {} })}
                 />
               </ButtonGroup>
             ) : null}
           </VStack>
 
-          <Button marginLeft={"auto"} mr={3} onClick={onClose}>
+          <Button marginLeft={"auto"} mr={3} onClick={closeModalHandler}>
             Cancel
           </Button>
           <Button
+            isLoading={isLoading}
             isDisabled={postData.content.trim() === "" || isLoading}
             onClick={savePostHandler}
             colorScheme={"blue"}
