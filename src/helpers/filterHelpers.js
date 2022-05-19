@@ -1,4 +1,4 @@
-const getHomeFeed = (user, posts) => {
+export const getHomeFeed = (user, posts) => {
   return posts
     .filter(
       (item) =>
@@ -8,28 +8,26 @@ const getHomeFeed = (user, posts) => {
     .reverse();
 };
 
-export const getFilteredPosts = (user, posts, sortByValue) => {
-    const homeFeed = getHomeFeed(user, posts);
-
+export const getFilteredPosts = (feed, sortByValue) => {
   switch (sortByValue) {
     case "":
-      return homeFeed;
+      return feed;
     case "oldest-first":
-      return [...homeFeed].sort(
+      return [...feed].sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
       );
     case "newest-first":
-      return [...homeFeed].sort(
+      return [...feed].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
     case "trending":
-      return [...homeFeed].sort((a, b) => {
+      return [...feed].sort((a, b) => {
         const interactionOnA = a.comments.length + a.likes.likeCount;
         const interactionOnB = b.comments.length + b.likes.likeCount;
 
         return interactionOnB - interactionOnA;
       });
     default:
-      return homeFeed;
+      return feed;
   }
 };
