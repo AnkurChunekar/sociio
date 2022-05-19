@@ -8,6 +8,9 @@ import {
   dislikePost,
   removePostFromBookmark,
   bookmarkPost,
+  addComment,
+  editComment,
+  deleteComment,
 } from "redux/asyncThunks";
 
 const initialState = {
@@ -103,6 +106,39 @@ const postsSlice = createSlice({
       state.status = "loading"
     },
     [removePostFromBookmark.rejected]: (state, action) => {
+      state.status = "failed"
+      console.error(action);
+    },
+    [addComment.fulfilled]: (state, action) => {
+      state.status = "succeeded"
+      state.posts = action.payload.data.posts;
+    },
+    [addComment.pending]: (state) => {
+      state.status = "loading"
+    },
+    [addComment.rejected]: (state, action) => {
+      state.status = "failed"
+      console.error(action);
+    },
+    [deleteComment.fulfilled]: (state, action) => {
+      state.status = "succeeded"
+      state.posts = action.payload.data.posts;
+    },
+    [deleteComment.pending]: (state) => {
+      state.status = "loading"
+    },
+    [deleteComment.rejected]: (state, action) => {
+      state.status = "failed"
+      console.error(action);
+    },
+    [editComment.fulfilled]: (state, action) => {
+      state.status = "succeeded"
+      state.posts = action.payload.data.posts;
+    },
+    [editComment.pending]: (state) => {
+      state.status = "loading"
+    },
+    [editComment.rejected]: (state, action) => {
       state.status = "failed"
       console.error(action);
     },

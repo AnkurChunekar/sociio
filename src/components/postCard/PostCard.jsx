@@ -9,8 +9,6 @@ import {
   VStack,
   HStack,
   Box,
-  Button,
-  Input,
   Tooltip,
   Menu,
   MenuButton,
@@ -30,7 +28,9 @@ import {
   likePost,
   removePostFromBookmark,
 } from "redux/asyncThunks";
-import { PostModal } from "./PostModal";
+import { PostModal } from "../PostModal";
+import { CommentsSection } from "./CommentsSection";
+// import { getPostCommentsService } from "services";
 
 export const PostCard = ({ postData }) => {
   const { user, token } = useSelector((state) => state.auth);
@@ -45,19 +45,21 @@ export const PostCard = ({ postData }) => {
   const avatarURL =
     postData.username === user.username ? user.avatarURL : postData.avatarURL;
 
+  // Like Functionality
   const isLikedByUser = postData.likes.likedBy.some(
     (item) => item.username === user.username
   );
 
-  const isBookmarkedByUser = user.bookmarks.some((id) => id === postData._id);
-
   const likeClickHandler = () => {
     if (isLikedByUser) {
-     dispatch(dislikePost({ postId: postData._id, token }));
+      dispatch(dislikePost({ postId: postData._id, token }));
     } else {
       dispatch(likePost({ postId: postData._id, token }));
     }
   };
+
+  // Bookmark functionality
+  const isBookmarkedByUser = user.bookmarks.some((id) => id === postData._id);
 
   const bookmarkClickHandler = async () => {
     if (isBookmarkedByUser) {
@@ -80,7 +82,13 @@ export const PostCard = ({ postData }) => {
       flexGrow={1}
       w="100%"
     >
-      <Flex alignItems={"center"} justifyContent="space-between" gap="2" w="full" px="2">
+      <Flex
+        alignItems={"center"}
+        justifyContent="space-between"
+        gap="2"
+        w="full"
+        px="2"
+      >
         <Link
           as={ReachLink}
           display={"flex"}
@@ -194,39 +202,7 @@ export const PostCard = ({ postData }) => {
         </Text>
       ) : null}
 
-      {showCommentsSection ? (
-        <>
-          <HStack width={"full"} px="1">
-            <Input flexGrow={1} placeholder="Add a comment" size="sm" />
-            <Button variant={"ghost"} colorScheme="blue" size="sm">
-              Post
-            </Button>
-          </HStack>
-
-          {postData.comments.map((item) => (
-            <HStack
-              key={item._id}
-              alignItems={"center"}
-              flexGrow="1"
-              px="2"
-              flexWrap={"wrap"}
-            >
-              <Avatar
-                size="xs"
-                src={
-                  item.username === user.username
-                    ? user.avatarURL
-                    : item.avatarURL
-                }
-              />
-              <Text fontWeight={"600"} fontSize="15px">
-                {item.firstName + " " + item.lastName}
-              </Text>
-              <Text fontSize="15px">{item.text}</Text>
-            </HStack>
-          ))}
-        </>
-      ) : null}
+      {showCommentsSection ? <CommentsSection postData={postData} /> : null}
 
       {isCurrentUsersPost ? (
         <PostModal
