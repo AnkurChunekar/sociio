@@ -94,7 +94,6 @@ export const dislikePost = createAsyncThunk(
         { headers: { authorization: token } }
       );
       const data = { data: response.data, status: response.status };
-      // console.log(data, "response");
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -125,6 +124,57 @@ export const removePostFromBookmark = createAsyncThunk(
     try {
       const response = await axios.post(
         `/api/users/remove-bookmark/${postId}`,
+        {},
+        { headers: { authorization: token } }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const addComment = createAsyncThunk(
+  "posts/addComment",
+  async ({ postId, commentData, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/comments/add/${postId}`,
+        { commentData },
+        { headers: { authorization: token } }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const editComment = createAsyncThunk(
+  "posts/editComment",
+  async ({ postId, commentId, token, commentData }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/comments/edit/${postId}/${commentId}`,
+        { commentData },
+        { headers: { authorization: token } }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const deleteComment = createAsyncThunk(
+  "posts/deleteComment",
+  async ({ postId, commentId, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/comments/delete/${postId}/${commentId}`,
         {},
         { headers: { authorization: token } }
       );

@@ -9,4 +9,7 @@ export {
   dislikePost,
   removePostFromBookmark,
   bookmarkPost,
+  addComment,
+  editComment,
+  deleteComment,
 } from "./postsThunks";
