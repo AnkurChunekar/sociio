@@ -47,7 +47,7 @@ export const SearchBar = () => {
         />
       </InputGroup>
 
-      {searchedUsers.length > 0 && searchText.trim() != "" ? (
+      {searchedUsers.length > 0 && searchText.trim() !== "" ? (
         <UnorderedList
           zIndex={"2"}
           position={"absolute"}
