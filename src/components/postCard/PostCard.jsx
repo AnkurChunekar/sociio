@@ -16,6 +16,8 @@ import {
   MenuItem,
   useDisclosure,
   Link,
+  AspectRatio,
+  Image,
 } from "@chakra-ui/react";
 import { AiOutlineEllipsis, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
@@ -30,7 +32,6 @@ import {
 } from "redux/asyncThunks";
 import { PostModal } from "../PostModal";
 import { CommentsSection } from "./CommentsSection";
-// import { getPostCommentsService } from "services";
 
 export const PostCard = ({ postData }) => {
   const { user, token } = useSelector((state) => state.auth);
@@ -70,6 +71,8 @@ export const PostCard = ({ postData }) => {
       dispatch(getAuthUser({ username: user.username }));
     }
   };
+
+  const imgFileFormats = ["jpg", "jpeg", "png", "gif", "webp"];
 
   return (
     <VStack
@@ -144,12 +147,23 @@ export const PostCard = ({ postData }) => {
       </Flex>
       <Text px="2">{postData.content}</Text>
 
+      {postData.fileURL ? (
+        imgFileFormats.some((format) => postData.fileURL.includes(format)) ? (
+          <AspectRatio height={"300px"} w="full" maxW="full" ratio={16 / 9}>
+            <Image alt="this is" borderRadius={"md"} src={postData.fileURL} />
+          </AspectRatio>
+        ) : (
+          <AspectRatio height={"300px"} w="full" maxW="full" ratio={16 / 9}>
+            <video controls src={postData.fileURL}></video>
+          </AspectRatio>
+        )
+      ) : null}
+
       <HStack alignItems={"center"} gap="50px" w="full" px="2">
         <HStack>
           <Tooltip label="Like" fontSize="md">
             <IconButton
               onClick={likeClickHandler}
-              // isDisabled={likeStatus === "loading"}
               backgroundColor={"transparent"}
               color={isLikedByUser ? "red.500" : "black"}
               fontSize="22px"

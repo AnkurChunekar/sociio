@@ -27,3 +27,31 @@ export const saveAvatarToCloudinaryService = (
     editUserHandler({...inputData, avatarURL: oldAvatarURL});
   }
 };
+
+export const saveFileToCloudinary = (
+  finalCallback,
+  inputData,
+) => {
+  const data = new FormData();
+  data.append("file", inputData.file);
+  data.append("upload_preset", "ckmjgh26");
+  const requestOptions = {
+    method: "POST",
+    body: data,
+  };
+
+  if (inputData.fileURL !== "") {
+    fetch(`https://api.cloudinary.com/v1_1/sociio/${inputData.fileURL.includes("video") ? "video" : "image"}/upload`, requestOptions)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        finalCallback(json.url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    finalCallback("");
+  }
+};

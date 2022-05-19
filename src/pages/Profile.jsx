@@ -25,7 +25,7 @@ export const Profile = () => {
   const isFollowedByUser = user.following.some(
     (item) => item.username === userData?.username
   );
-  
+
   useEffect(() => {
     getUserService(username, setUserData);
   }, [username, user]);
@@ -105,7 +105,7 @@ export const Profile = () => {
       </HStack>
 
       <Text fontWeight={"700"} fontSize="xl" py="5">
-        Your Posts
+       All Posts
       </Text>
       <VStack gap={5} marginTop="50px">
         {userData
