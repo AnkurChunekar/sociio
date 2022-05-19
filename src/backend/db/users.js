@@ -17,11 +17,12 @@ export const users = [
       "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
     following: [
       {
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
+        _id: "1b288c33-ff6d-49c0-a8d3-58b297f1456",
+        firstName: "Ryan",
+        lastName: "Florence",
+        username: "ryanflorence",
         avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
+          "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
       },
     ],
     followers: [
@@ -33,7 +34,6 @@ export const users = [
         avatarURL:
           "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
       },
-
       {
         _id: "1b288c33-ff6d-49c0-a8d3-58b297f1456",
         firstName: "Ryan",

@@ -9,84 +9,6 @@ import { formatDate } from "../utils/authUtils";
 export const posts = [
   {
     _id: uuid(),
-    content:
-      "Don't build your startups for VC. Build it for your customer. Simple advice. Often overlooked.",
-    likes: {
-      likeCount: 2,
-      likedBy: [
-        {
-          _id: uuid(),
-          firstName: "Segun",
-          lastName: "Adebayo",
-          username: "segunadebayo",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
-        },
-        {
-          firstName: "John",
-          lastName: "Doe",
-          username: "johndoe",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
-        },
-        {
-          firstName: "Dan",
-          lastName: "Abramov",
-          username: "danabramov",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726468/dan-abramov_t3hlxr.jpg",
-        },
-        {
-          _id: uuid(),
-          firstName: "Ryan",
-          lastName: "Florence",
-          username: "ryanflorence",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
-        },
-      ],
-      dislikedBy: [],
-    },
-    username: "adarshbalika",
-    firstName: "Adarsh",
-    lastName: "Balika",
-    createdAt: new Date("Dec 25 2021 12:31:25"),
-    updatedAt: formatDate(),
-    avatarURL:
-      "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-    comments: [
-      {
-        _id: uuid(),
-        firstName: "Segun",
-        lastName: "Adebayo",
-        username: "segunadebayo",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
-        text: "often overlooked",
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-        createdAt: new Date("Jan 05 2021 12:31:25"),
-      },
-      {
-        _id: uuid(),
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
-        text: "yes you are right!",
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-        createdAt: new Date("Jan 08 2021 12:31:25"),
-      },
-    ],
-  },
-  {
-    _id: uuid(),
     content: `In India, everyone is a self taught developer. Fact. Not kidding. The education part of college failed all of us.`,
     likes: {
       likeCount: 3,
@@ -661,72 +583,6 @@ export const posts = [
   },
   {
     _id: uuid(),
-    content: `"The strongest intellectual foundation is built upon science, math, and philosophy, as they are the search for universal truths." - @naval`,
-    likes: {
-      likeCount: 2,
-      likedBy: [
-        {
-          _id: uuid(),
-          firstName: "Segun",
-          lastName: "Adebayo",
-          username: "segunadebayo",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
-        },
-        {
-          firstName: "John",
-          lastName: "Doe",
-          username: "johndoe",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
-        },
-      ],
-      dislikedBy: [],
-    },
-    username: "adarshbalika",
-    firstName: "Adarsh",
-    lastName: "Balika",
-    createdAt: new Date("Feb 05 2022 12:31:25"),
-    updatedAt: formatDate(),
-    avatarURL:
-      "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-    comments: [],
-  },
-  {
-    _id: uuid(),
-    content: `"The closer you are to the truth, the more silent you become inside." - @naval`,
-    likes: {
-      likeCount: 2,
-      likedBy: [
-        {
-          firstName: "Dan",
-          lastName: "Abramov",
-          username: "danabramov",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726468/dan-abramov_t3hlxr.jpg",
-        },
-        {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-        },
-      ],
-
-      dislikedBy: [],
-    },
-    username: "adarshbalika",
-    firstName: "Adarsh",
-    lastName: "Balika",
-    createdAt: new Date("Feb 18 2021 12:31:25"),
-    updatedAt: formatDate(),
-    avatarURL:
-      "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-    comments: [],
-  },
-  {
-    _id: uuid(),
     content: `"The larger the herd, the lower the returns." - @naval`,
     likes: {
       likeCount: 3,
@@ -851,45 +707,6 @@ export const posts = [
   },
   {
     _id: uuid(),
-    content: `Ability to consume information fast is new age superpower. @tanaypratap`,
-    likes: {
-      likeCount: 3,
-      likedBy: [
-        {
-          firstName: "John",
-          lastName: "Doe",
-          username: "johndoe",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
-        },
-        {
-          firstName: "Dan",
-          lastName: "Abramov",
-          username: "danabramov",
-          avatarURL:
-            "https://res.cloudinary.com/sociio/image/upload/v1652726468/dan-abramov_t3hlxr.jpg",
-        },
-        {
-          firstName: "John",
-          lastName: "Doe",
-          username: "johndoe",
-          avatarURL:
-            "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181890/socmedia/pic6_brdxis.jpg",
-        },
-      ],
-      dislikedBy: [],
-    },
-    firstName: "Ryan",
-    lastName: "Florence",
-    username: "ryanflorence",
-    createdAt: new Date("June 15 2021 12:31:25"),
-    updatedAt: formatDate(),
-    avatarURL:
-      "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
-    comments: [],
-  },
-  {
-    _id: uuid(),
     content: `Nothing can beat the joy of seeing live users on your website.`,
     likes: {
       likeCount: 0,
@@ -903,7 +720,36 @@ export const posts = [
     updatedAt: formatDate(),
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-    comments: [],
+    comments: [
+      {
+        _id: uuid(),
+        firstName: "Segun",
+        lastName: "Adebayo",
+        username: "segunadebayo",
+        avatarURL:
+          "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
+        text: "Live users are awesome",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+        createdAt: new Date("Jan 05 2021 12:31:25"),
+      },
+      {
+        _id: uuid(),
+        firstName: "John",
+        lastName: "Doe",
+        username: "johndoe",
+        avatarURL:
+          "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
+        text: "yes you are right!",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+        createdAt: new Date("Jan 08 2021 12:31:25"),
+      },
+    ],
   },
   {
     _id: uuid(),
