@@ -47,7 +47,6 @@ export const CommentsSection = ({ postData }) => {
     }
   };
 
-  // { postId, commentId, token, commentData }
   const saveEditedCommentClick = async (commentId) => {
     if (commentInput.editText.trim() !== "") {
       setCommentInput((prev) => ({
@@ -83,7 +82,7 @@ export const CommentsSection = ({ postData }) => {
           size="sm"
         />
         <Button
-          isDisabled={commentInput.isLoading}
+          isDisabled={commentInput.isLoading || commentInput.text === ""}
           isLoading={commentInput.isLoading}
           onClick={postCommentClickHandler}
           variant={"ghost"}
