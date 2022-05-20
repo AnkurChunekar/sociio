@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+<div id="top"></div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- PROJECT LOGO -->
 
-## Available Scripts
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="./public/sociio-logo.jpg" alt="Logo" width="150" height="150" >
+  </a>
+  <br/>
+  <h3 style="font-weight: 600" align="center">SOCIIO</h3>
 
-In the project directory, you can run:
+  <p align="center">
+    Sociio is a social media app where users can interact with each other.
+    <br />
+    <a href="https://sociio.netlify.app">Live Website</a>
+    ·
+    <a href="https://github.com/AnkurChunekar/Sociio/issues/new">Report Bug</a>
+    ·
+    <a href="https://github.com/AnkurChunekar/Sociio/issues/new">Request Feature</a>
+  </p>
+</div>
 
-### `yarn start`
+<!-- TABLE OF CONTENTS -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<details style="margin: 1rem 0">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+      <li><a href="#built-with">Built With</a></li>
+    <li>
+      <a href="#features">Features</a>
+    </li>
+    <li><a href="#how-to-use">How To Use</a></li>
+    <li><a href="#folder-structure">Folder Structure</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<!-- ABOUT THE PROJECT -->
 
-### `yarn test`
+## About The Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![product-screenshot](/src/assets/sociio-gif.gif)
 
-### `yarn build`
+Sociio is an online social networking app where people communicate with each other.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<!-- Built With -->
+## Built With
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [ReactJS](https://reactjs.org/)
+- [React Router](https://reactrouter.com/)
+- [Chakra UI](https://chakra-ui.com/)
+- [Mockbee](https://www.mockbe.netlify.app/)
+- [React Icons](https://react-icons.github.io/)
 
-### `yarn eject`
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<!-- Features -->
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Post
+  - Create a Post.
+  - Upload Images, GIF & Videos.
+  - Edit Post 
+  - Delete Post
+  - Like and Unlike Posts
+  - Bookmark Posts
+  - Comment and Reply on any post
+- Home and Explore Feed
+- Sort Newest/Oldest Posts
+- View Trending Posts
+- User Profile
+  - Profile Picture
+  - Bio
+  - Portfolio URL
+- Follow/Unfollow Users
+- Authentication
+  - Sign-up
+  - Login
+  - Logout
+- Search user with username and name.
+- User Status/Stories.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-## Learn More
+<!-- How To Use -->
+## How To Use
+- Fork the project
+- Run npm install in the terminal
+- Run npm start to run project on your localhost
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<!-- Folder Structure -->
+## Folder Structure
 
-### Code Splitting
+```jsx
+- /public
+- /src
+   - /backend
+   - /components
+   - /helpers
+   - /pages
+   - /redux
+   - /services
+   - App.css
+   - App.js
+   - index.css
+   - index.js
+   - server.js
+   -RequiresAuth.jsx
+   -theme.js
+- package-lock.json
+- package.json
+- README.md
+- yarn.lock
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-### Analyzing the Bundle Size
+<!-- CONTRIBUTING -->
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contributing
 
-### Making a Progressive Web App
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Fork the Project
+2. Create your Feature Branch
+3. Commit your Changes
+4. Push to the Branch
+5. Open a Pull Request
 
-### Advanced Configuration
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<!-- CONTACT -->
 
-### Deployment
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Twitter - [@ankur_chunekar](https://twitter.com/ankur_chunekar)
+- Linkedin - [@ankurchunekar](https://www.linkedin.com/in/ankurchunekar/)
+- Website - [ankurchunekar.netlify.app](https://ankurchunekar.netlify.app/)
+- Hashnode - [@ankurchunekar](https://ankurchunekar.hashnode.dev/)
 
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="right">(<a href="#top">back to top</a>)</p>
