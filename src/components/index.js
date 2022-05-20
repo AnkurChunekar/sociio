@@ -5,3 +5,4 @@ export {EditProfileModal} from "./EditProfileModal";
 export {PostModal} from "./PostModal";
 export {FilterRow} from "./FilterRow";
 export {SearchBar} from "./SearchBar";
+export {UserStatusRow} from "./UserStatusRow";

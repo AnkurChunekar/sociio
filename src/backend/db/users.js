@@ -44,6 +44,8 @@ export const users = [
       },
     ],
     bookmarks: [],
+    statusImgURL:
+      "https://i.picsum.photos/id/787/600/400.jpg?hmac=BNah2GlH1mF6ahc9LeQK6FAvlTiCGUBJjVnPjMtek7A",
     bio: "I am very adarsh and i am also a balika.",
     website: "https://adarshbalika.netlify.app/",
   },
@@ -57,6 +59,8 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     email: "teju@gmail.com",
+    statusImgURL:
+      "https://i.picsum.photos/id/296/600/400.jpg?hmac=d0b0HACiExoMkGgjXnE6GrmWMrhKl-iw2gKO4pcDzIU",
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
     following: [
@@ -112,6 +116,8 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     email: "johndoe@gmail.com",
+    statusImgURL:
+      "https://i.picsum.photos/id/505/600/400.jpg?hmac=ucqGdI7a6Z0VFIgQiYxqubLV9it-JvzM3J3MYL24ivA",
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
     followers: [
@@ -162,6 +168,8 @@ export const users = [
     password: "ryanflorence123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    statusImgURL:
+      "https://i.picsum.photos/id/650/600/400.jpg?hmac=I_ZN2h1tUinytChF_D7YEaiIH9EYIT52hPiC_bA7nxY",
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
     email: "ryanflorence@gmail.com",
@@ -217,6 +225,8 @@ export const users = [
     password: "danabramov123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    statusImgURL:
+      "https://i.picsum.photos/id/37/600/400.jpg?hmac=6e_BjhayW1iTjzkbo06D13sXFQSn0--S_bR3CQhhtAE",
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726468/dan-abramov_t3hlxr.jpg",
     email: "danabramov@gmail.com",
@@ -253,6 +263,8 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     email: "kolatioluwani@gmail.com",
+    statusImgURL:
+      "https://i.picsum.photos/id/990/600/400.jpg?hmac=0ThrDbALCAdiTjfViw4m0glP6ZlLp-pofK3Mx5ydEqU",
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
     followers: [
