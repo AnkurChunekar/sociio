@@ -4,6 +4,7 @@ import { Navbar, SuggestionSidebar } from "components";
 import { Box, Center, Container } from "@chakra-ui/react";
 import { RequiresAuth } from "RequiresAuth";
 import "./App.css";
+import { Error404 } from "pages/Error404";
 
 function App() {
   const { pathname } = useLocation();
@@ -58,6 +59,7 @@ function App() {
                 </RequiresAuth>
               }
             />
+            <Route path="*" element={<Error404 />} />
           </Routes>
           {publicRoutePathnames.includes(pathname) ? null : (
             <SuggestionSidebar />
