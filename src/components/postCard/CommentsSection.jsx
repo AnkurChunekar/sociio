@@ -15,6 +15,7 @@ import {
   MenuList,
   Text,
   Tooltip,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { FaEllipsisV } from "react-icons/fa";
@@ -31,6 +32,7 @@ export const CommentsSection = ({ postData }) => {
     commentId: "",
   });
   const dispatch = useDispatch();
+  const toast = useToast();
   const { user, token } = useSelector((state) => state.auth);
 
   const postCommentClickHandler = async () => {
@@ -44,6 +46,13 @@ export const CommentsSection = ({ postData }) => {
         })
       );
       setCommentInput((prev) => ({ ...prev, isLoading: false }));
+    } else {
+      toast({
+        title: "Comment Input cannot be Empty!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
@@ -64,6 +73,13 @@ export const CommentsSection = ({ postData }) => {
         })
       );
       setCommentInput((prev) => ({ ...prev, isLoading: false }));
+    } else {
+      toast({
+        title: "Comment Input cannot be Empty!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 

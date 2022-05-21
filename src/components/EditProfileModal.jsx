@@ -16,6 +16,7 @@ import {
   FormLabel,
   VStack,
   FormControl,
+  useToast,
 } from "@chakra-ui/react";
 import { AiFillCamera } from "react-icons/ai";
 import { editUser } from "redux/asyncThunks";
@@ -30,6 +31,7 @@ export const EditProfileModal = ({
 }) => {
   const initialInputData = { ...userData, avatarURL: "", avatarFile: {} };
   const [inputData, setInputData] = useState(initialInputData);
+  const toast = useToast();
   let reader = new FileReader();
 
   const { isLoading, token } = useSelector((state) => state.auth);
@@ -62,8 +64,20 @@ export const EditProfileModal = ({
       const response = await dispatch(editUser({ userData: data, token }));
       if (response.payload.status === 201) {
         setUserData(response.payload.data.user);
+        toast({
+          title: "Profile Edited Successfully!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } catch (error) {
+      toast({
+        title: "Some Error Occurred, Please try again!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
       console.error(error);
     } finally {
       onCloseProfile();

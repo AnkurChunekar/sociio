@@ -6,8 +6,10 @@ export function RequiresAuth({ children }) {
   const authState = useSelector(state => state.auth);
   const token = authState.token || localStorage.getItem("token");
   const location = useLocation();
+  const isUserLoggedIn = authState.user && token;
+ 
 
-  return token ? (
+  return isUserLoggedIn ? (
     children
   ) : (
     <Navigate to="/" state={{ from: location }} replace />

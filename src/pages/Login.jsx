@@ -14,13 +14,15 @@ import {
   Link,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { login } from "redux/asyncThunks";
 
 export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, token } = useSelector((state) => state.auth);
+  const toast = useToast();
+  const { isLoading, token, user } = useSelector((state) => state.auth);
 
   const [userData, setUserData] = useState({
     username: "",
@@ -41,6 +43,22 @@ export function Login() {
       localStorage.setItem("user", JSON.stringify(payload.data.foundUser));
       localStorage.setItem("token", payload.data.encodedToken);
     }
+
+    if (payload.status === 200) {
+      toast({
+        title: "Login Successfull!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Some error occurred, Please try again!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleGuestLogin = () => {
@@ -52,8 +70,8 @@ export function Login() {
   };
 
   useEffect(() => {
-    if (token) navigate("/home");
-  }, [token, navigate]);
+    if (token && user) navigate("/home");
+  }, [token, navigate, user]);
 
   return (
     <Flex

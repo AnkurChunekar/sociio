@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import { VStack, Text } from "@chakra-ui/react";
-import { PostCard, FilterRow } from "components";
+import { PostCard, FilterRow, SearchBar } from "components";
 import { getFilteredPosts } from "helpers/filterHelpers";
 
 export const Explore = () => {
@@ -12,6 +12,7 @@ export const Explore = () => {
 
   return (
     <VStack gap={5}>
+      <SearchBar />
        <FilterRow sortByValue={sortByValue} setSortByValue={setSortByValue} />
       {filteredPosts.length > 0 ? (
         filteredPosts.map((item) => (

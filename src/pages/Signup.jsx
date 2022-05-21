@@ -17,6 +17,7 @@ import {
   Link,
   useColorModeValue,
   Icon,
+  useToast,
 } from "@chakra-ui/react";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { signup } from "redux/asyncThunks";
@@ -35,7 +36,7 @@ export function Signup() {
   const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const toast = useToast();
   const updateUserData = (e) => {
     setUserData((ud) => ({ ...ud, [e.target.name]: e.target.value }));
   };
@@ -48,6 +49,19 @@ export function Signup() {
 
       if (payload.status === 201) {
         navigate("/home");
+        toast({
+          title: "Signup Successfull!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Some error occurred, Please try again!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       }
     }
   };
@@ -149,7 +163,7 @@ export function Signup() {
                     variant={"ghost"}
                     onClick={() => setShowConfirmPassword((cp) => !cp)}
                   >
-                    {showPassword ? (
+                    {showConfirmPassword ? (
                       <Icon as={BsEyeFill} w={4} h={4} />
                     ) : (
                       <Icon as={BsEyeSlashFill} w={4} h={4} />
