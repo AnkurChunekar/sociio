@@ -1,7 +1,16 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Avatar, Button, Text, VStack, Link, HStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  Text,
+  VStack,
+  Link,
+  HStack,
+  useToast,
+  Spinner,
+} from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { PostCard, EditProfileModal } from "components";
 import { logout } from "redux/slices/authSlice";
@@ -15,6 +24,7 @@ export const Profile = () => {
     onClose: onCloseProfile,
   } = useDisclosure();
   const [userData, setUserData] = useState(null);
+  const toast = useToast();
 
   const { user, token } = useSelector((state) => state.auth);
   const { status } = useSelector((state) => state.users);
@@ -31,8 +41,14 @@ export const Profile = () => {
   }, [username, user]);
 
   const handleLogout = () => {
-    dispatch(logout());
     navigate("/");
+    dispatch(logout());
+    toast({
+      title: "Logout Successfull!",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   const currentUsersPosts =
@@ -52,7 +68,7 @@ export const Profile = () => {
   };
 
   return userData ? (
-    <VStack flexGrow={1} maxW="600px">
+    <VStack flexGrow={1} maxW="600px" minH="88vh">
       <Avatar
         size="2xl"
         name={userData.firstName + " " + userData.lastName}
@@ -105,9 +121,9 @@ export const Profile = () => {
       </HStack>
 
       <Text fontWeight={"700"} fontSize="xl" py="5">
-       All Posts
+        All Posts
       </Text>
-      <VStack gap={5} marginTop="50px">
+      <VStack w="full" gap={5} marginTop="50px">
         {userData
           ? currentUsersPosts.map((item) => (
               <Fragment key={item._id}>
@@ -126,6 +142,12 @@ export const Profile = () => {
       />
     </VStack>
   ) : (
-    <Text>...Fetching User Details</Text>
+    <Spinner
+      thickness="4px"
+      speed="0.65s"
+      emptyColor="gray.200"
+      color="blue.500"
+      size="xl"
+    />
   );
 };

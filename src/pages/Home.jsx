@@ -24,7 +24,7 @@ export const Home = () => {
   const filteredPosts = getFilteredPosts(homeFeed, sortByValue);
 
   return (
-    <VStack gap={5}>
+    <VStack gap={5} minH="88vh">
       <UserStatusRow />
       <SearchBar />
       <FilterRow sortByValue={sortByValue} setSortByValue={setSortByValue} />
@@ -35,7 +35,7 @@ export const Home = () => {
           </Fragment>
         ))
       ) : (
-        <Text>There are no posts to display 😓.</Text>
+        <Text maxW="500px" textAlign={"center"} > Welcome 👋🏼, Follow some users or Add a new post to see some feed here, or checkout the explore page.</Text>
       )}
     </VStack>
   );

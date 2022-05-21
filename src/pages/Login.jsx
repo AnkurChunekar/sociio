@@ -14,12 +14,14 @@ import {
   Link,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { login } from "redux/asyncThunks";
 
 export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const toast = useToast();
   const { isLoading, token } = useSelector((state) => state.auth);
 
   const [userData, setUserData] = useState({
@@ -40,6 +42,22 @@ export function Login() {
     if (payload.status === 200 && userData.toBeRemembered) {
       localStorage.setItem("user", JSON.stringify(payload.data.foundUser));
       localStorage.setItem("token", payload.data.encodedToken);
+    }
+
+    if (payload.status === 200) {
+      toast({
+        title: "Login Successfull!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "Some error occurred, Please try again!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 

@@ -13,6 +13,7 @@ import {
   ModalCloseButton,
   AspectRatio,
   Image,
+  Text,
 } from "@chakra-ui/react";
 
 export const UserStatusRow = () => {
@@ -22,9 +23,7 @@ export const UserStatusRow = () => {
   const [currentStatusURL, setCurrentStatusURL] = useState("");
 
   const followedUsers = usersData.filter((item) =>
-    user.following.some(
-      (el) => el.username === item.username || item.username === user.username
-    )
+    user.following.some((el) => el.username === item.username)
   );
 
   return (
@@ -67,7 +66,11 @@ export const UserStatusRow = () => {
           <ModalCloseButton />
           <ModalBody>
             <AspectRatio w="full" ratio={4 / 3}>
-              <Image w="full" src={currentStatusURL} objectFit="cover" />
+              {currentStatusURL ? (
+                <Image w="full" src={currentStatusURL} objectFit="cover" />
+              ) : (
+                <Text fontWeight={600}>Status is not added yet.</Text>
+              )}
             </AspectRatio>
           </ModalBody>
         </ModalContent>
