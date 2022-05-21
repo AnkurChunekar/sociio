@@ -22,7 +22,7 @@ export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const toast = useToast();
-  const { isLoading, token } = useSelector((state) => state.auth);
+  const { isLoading, token, user } = useSelector((state) => state.auth);
 
   const [userData, setUserData] = useState({
     username: "",
@@ -70,8 +70,8 @@ export function Login() {
   };
 
   useEffect(() => {
-    if (token) navigate("/home");
-  }, [token, navigate]);
+    if (token && user) navigate("/home");
+  }, [token, navigate, user]);
 
   return (
     <Flex

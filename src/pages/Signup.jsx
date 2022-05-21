@@ -163,7 +163,7 @@ export function Signup() {
                     variant={"ghost"}
                     onClick={() => setShowConfirmPassword((cp) => !cp)}
                   >
-                    {showPassword ? (
+                    {showConfirmPassword ? (
                       <Icon as={BsEyeFill} w={4} h={4} />
                     ) : (
                       <Icon as={BsEyeSlashFill} w={4} h={4} />
