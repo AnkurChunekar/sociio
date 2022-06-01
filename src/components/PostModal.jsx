@@ -139,7 +139,6 @@ export const PostModal = ({
             </FormLabel>
             {fileData.fileURL ? (
               <ButtonGroup size="sm" isAttached variant="outline">
-                {console.log("inside btn group")}
                 <Button
                   _hover={{
                     borderColor: "initial",
