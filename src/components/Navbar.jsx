@@ -77,25 +77,40 @@ export const Navbar = () => {
                 />
               </Tooltip>
 
-              {linkData.map((item) => (
-                <Tooltip key={item.id} label={item.tooltipText}>
-                  <Link borderRadius="full" as={ReachLink} to={item.pathname}>
-                    <Icon
-                      w="40px"
-                      h="full"
-                      p={2}
-                      d="block"
-                      bg="gray.100"
-                      _hover={{ backgroundColor: "gray.200" }}
-                      borderRadius="full"
-                      lineHeight={"100%"}
-                      as={
-                        pathname === item.pathname ? item.activeIcon : item.icon
-                      }
-                    />
-                  </Link>
-                </Tooltip>
-              ))}
+              <HStack
+                alignItems={"center"}
+                position={{ base: "fixed", sm: "static" }}
+                bottom="0"
+                right={0}
+                justifyContent={"space-around"}
+                bg={"white"}
+                w="100%"
+                py={{ base: 1, sm: 0 }}
+                gap={{ base: 0.5, sm: 1, md: 2 }}
+                borderTop={ {base: "solid 1px lightgray", sm: "none"}}
+              >
+                {linkData.map((item) => (
+                  <Tooltip key={item.id} label={item.tooltipText}>
+                    <Link borderRadius="full" as={ReachLink} to={item.pathname}>
+                      <Icon
+                        w="40px"
+                        h="full"
+                        p={2}
+                        d="block"
+                        bg={{base: "none", sm: "gray.100"}}
+                        _hover={{ backgroundColor: "gray.200" }}
+                        borderRadius="full"
+                        lineHeight={"100%"}
+                        as={
+                          pathname === item.pathname
+                            ? item.activeIcon
+                            : item.icon
+                        }
+                      />
+                    </Link>
+                  </Tooltip>
+                ))}
+              </HStack>
               <Link
                 borderRadius="full"
                 as={ReachLink}
