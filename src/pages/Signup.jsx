@@ -193,7 +193,7 @@ export function Signup() {
             <Stack pt={6}>
               <Text align={"center"}>
                 Already a user?{" "}
-                <Link as={ReachLink} to="/" color={"blue.500"}>
+                <Link as={ReachLink} to="/" color={"blue.600"}>
                   Log in
                 </Link>
               </Text>

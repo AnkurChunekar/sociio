@@ -10,6 +10,7 @@ import {
   HStack,
   IconButton,
   Tooltip,
+  Icon,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -77,20 +78,23 @@ export const Navbar = () => {
               </Tooltip>
 
               {linkData.map((item) => (
-                <Link key={item.id} as={ReachLink} to={item.pathname}>
-                  <Tooltip label={item.tooltipText}>
-                    <IconButton
+                <Tooltip key={item.id} label={item.tooltipText}>
+                  <Link borderRadius="full" as={ReachLink} to={item.pathname}>
+                    <Icon
+                      w="40px"
+                      h="full"
+                      p={2}
+                      d="block"
+                      bg="gray.100"
+                      _hover={{ backgroundColor: "gray.200" }}
                       borderRadius="full"
-                      icon={
-                        pathname === item.pathname ? (
-                          <item.activeIcon size="22px" w="25px" h="25px" />
-                        ) : (
-                          <item.icon size="22px" w="25px" h="25px" />
-                        )
+                      lineHeight={"100%"}
+                      as={
+                        pathname === item.pathname ? item.activeIcon : item.icon
                       }
                     />
-                  </Tooltip>
-                </Link>
+                  </Link>
+                </Tooltip>
               ))}
               <Link
                 borderRadius="full"

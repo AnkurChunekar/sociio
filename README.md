@@ -74,6 +74,7 @@ Sociio is an online social networking app where people communicate with each oth
   - Bookmark Posts
   - Comment and Reply on any post
 - Home and Explore Feed
+- Infinite Scroll on Explore page.
 - Sort Newest/Oldest Posts
 - View Trending Posts
 - User Profile
@@ -86,7 +87,7 @@ Sociio is an online social networking app where people communicate with each oth
   - Login
   - Logout
 - Search user with username and name.
-- User Status/Stories.
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

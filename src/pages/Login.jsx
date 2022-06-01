@@ -160,7 +160,7 @@ export function Login() {
           <Stack pt={6}>
             <Text align={"center"}>
               Not a user?{" "}
-              <Link color={"blue.500"} as={ReachLink} to="/signup">
+              <Link color={"blue.600"} as={ReachLink} to="/signup">
                 Sign up
               </Link>
             </Text>
