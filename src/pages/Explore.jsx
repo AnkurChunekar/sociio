@@ -23,6 +23,7 @@ export const Explore = () => {
       setPagedPosts((prev) => {
         return [...prev, ...newPosts];
       });
+      intersectionObserver.current.observe(targetRef.current);
     } else {
       setInfinteScrollStatus({ loading: false, completed: true });
       intersectionObserver.current.unobserve(targetRef.current);
@@ -36,6 +37,7 @@ export const Explore = () => {
       ([entry]) => {
         if (entry.isIntersecting && !infiniteScrollStatus.loading) {
           setCurrentPage((prev) => prev + 1);
+          intersectionObserver.current.unobserve(entry.target);
         }
       },
       {
