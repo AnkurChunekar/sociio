@@ -63,8 +63,8 @@ export function Login() {
 
   const handleGuestLogin = () => {
     setUserData({
-      username: "adarshbalika",
-      password: "adarshBalika123",
+      username: "michellegore",
+      password: "michellegore123",
       toBeRemembered: true,
     });
   };
