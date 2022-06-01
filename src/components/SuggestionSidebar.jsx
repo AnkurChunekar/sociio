@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link as ReachLink } from "react-router-dom";
 import {
   VStack,
@@ -14,18 +14,22 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { followUser, editUser } from "redux/asyncThunks";
+import { followUser, editUser, getAllUsers } from "redux/asyncThunks";
 
-const SuggestedProfile = ({ profileData, token, status }) => {
+const SuggestedProfile = ({ profileData, token }) => {
   const { username, avatarURL, firstName, lastName, _id } = profileData;
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const followUserHandler = async () => {
+    setLoading(true);
     try {
       const response = await dispatch(followUser({ followUserId: _id, token }));
       dispatch(editUser({ userData: response.payload.data.user, token }));
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,7 +55,7 @@ const SuggestedProfile = ({ profileData, token, status }) => {
 
       <Tooltip label="Follow" fontSize="md">
         <IconButton
-          isDisabled={status === "loading"}
+          isDisabled={loading}
           borderRadius="full"
           aria-label="follow user"
           size={"sm"}
@@ -65,8 +69,15 @@ const SuggestedProfile = ({ profileData, token, status }) => {
 };
 
 export const SuggestionSidebar = () => {
-  const { usersData, status } = useSelector((state) => state.users);
+  const { usersData } = useSelector((state) => state.users);
   const { user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (usersData.length < 1) {
+      dispatch(getAllUsers());
+    }
+  }, [usersData.length, dispatch]);
 
   const getSuggestedUsers = () =>
     usersData.filter(
@@ -101,7 +112,6 @@ export const SuggestionSidebar = () => {
               <SuggestedProfile
                 profileData={item}
                 token={token}
-                status={status}
               />
             </Fragment>
           ))

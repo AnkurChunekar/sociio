@@ -14,8 +14,13 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { PostCard, EditProfileModal } from "components";
 import { logout } from "redux/slices/authSlice";
-import { getUserService, getUserPostsService } from "services";
-import { editUser, followUser, unfollowUser } from "redux/asyncThunks";
+import { getUserService } from "services";
+import {
+  editUser,
+  followUser,
+  getAllPosts,
+  unfollowUser,
+} from "redux/asyncThunks";
 
 export const Profile = () => {
   const {
@@ -24,11 +29,12 @@ export const Profile = () => {
     onClose: onCloseProfile,
   } = useDisclosure();
   const [userData, setUserData] = useState(null);
-  const [postData, setPostData] = useState(null);
+  // const [postData, setPostData] = useState(null);
   const toast = useToast();
 
   const { user, token } = useSelector((state) => state.auth);
   const { status } = useSelector((state) => state.users);
+  const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
@@ -41,8 +47,10 @@ export const Profile = () => {
   }, [username, user]);
 
   useEffect(() => {
-    getUserPostsService(username, setPostData);
-  }, [username, user]);
+    if (posts.length < 1) {
+      dispatch(getAllPosts());
+    }
+  }, [dispatch, posts.length]);
 
   const handleLogout = () => {
     navigate("/");
@@ -67,6 +75,9 @@ export const Profile = () => {
       console.error(error);
     }
   };
+
+  const currentUsersPosts =
+    userData && posts.filter((item) => item.username === userData.username);
 
   return userData ? (
     <VStack flexGrow={1} maxW="600px" minH="88vh">
@@ -112,7 +123,9 @@ export const Profile = () => {
           <Text>Following</Text>
         </VStack>
         <VStack py="3" px="5">
-          {postData ? <Text fontWeight="700">{postData.length}</Text> : null}
+          {currentUsersPosts.length ? (
+            <Text fontWeight="700">{currentUsersPosts.length}</Text>
+          ) : null}
           <Text>Posts</Text>
         </VStack>
         <VStack py="3" px="5">
@@ -125,8 +138,10 @@ export const Profile = () => {
         All Posts
       </Text>
       <VStack w="full" gap={5} marginTop="50px">
-        {postData
-          ? postData.map((item) => <PostCard key={item._id} postData={item} />)
+        {currentUsersPosts.length > 0
+          ? currentUsersPosts.map((item) => (
+              <PostCard key={item._id} postData={item} />
+            ))
           : null}
       </VStack>
 

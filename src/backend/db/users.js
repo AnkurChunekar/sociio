@@ -46,7 +46,7 @@ export const users = [
     bookmarks: [],
     statusImgURL:
       "https://i.picsum.photos/id/787/600/400.jpg?hmac=BNah2GlH1mF6ahc9LeQK6FAvlTiCGUBJjVnPjMtek7A",
-    bio: "Proud food advocate. Gamer. Certified music specialist. Beer fanatic. Lifelong tv expert. Friendly coffee buff. Unapologetic internet fan.",
+    bio: "Proud food advocate. Gamer. Certified music specialist. Beer fanatic. Lifelong tv expert.",
     website: "https://michellegore.com",
   },
   /*****************************************2*******************************************/
@@ -104,7 +104,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Chakra UI is my favorite i use it a lot",
-    website: "https://www.google.co.in/",
+    website: "https://github.com/segunadebayo",
   },
   /*******************************3*********************************/
   {
@@ -214,7 +214,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Remix - Build Better Websites | React Training | React Router",
-    website: "https://www.google.co.in/",
+    website: "https://ryanflorence.com/",
   },
   /**************************************************5**************************************************/
   {
@@ -251,7 +251,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Software engineer at Facebook | Creator of Redux.",
-    website: "https://www.google.co.in/",
+    website: "https://overreacted.io/",
   },
   /*********************************************7*****************************************/
   {
@@ -283,6 +283,6 @@ export const users = [
      and 
     @zag_js
     .`,
-    website: "https://www.google.co.in/",
+    website: "https://twitter.com/TioluwaniK",
   },
 ];
