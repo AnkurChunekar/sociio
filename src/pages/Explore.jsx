@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { VStack, Text, Box, Spinner } from "@chakra-ui/react";
 import { getCurrentPagedPosts } from "services/getCurrentPagedPosts.service";
 import { PostCard } from "components";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPosts } from "redux/asyncThunks";
 
 export const Explore = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -11,6 +13,8 @@ export const Explore = () => {
   });
   const targetRef = useRef(null);
   const [pagedPosts, setPagedPosts] = useState([]);
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.posts);
 
   const getNewPosts = useCallback(async () => {
     setInfinteScrollStatus((prev) => ({ ...prev, loading: true }));
@@ -50,11 +54,22 @@ export const Explore = () => {
     }
   }, [currentPage, getNewPosts]);
 
+  useEffect(() => {
+    if (posts.length < 1) {
+      dispatch(getAllPosts());
+    }
+  }, [dispatch, posts.length]);
+
+  const filteredPosts =
+    pagedPosts.length > 0
+      ? posts.filter((post) => pagedPosts.some((item) => item._id === post._id))
+      : [];
+
   return (
     <>
       <VStack gap={5}>
-        {pagedPosts.length > 0 ? (
-          pagedPosts.map((item) => <PostCard key={item._id} postData={item} />)
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map((item) => <PostCard key={item._id} postData={item} />)
         ) : infiniteScrollStatus.loading ? null : (
           <Text>There are no posts to display.</Text>
         )}
