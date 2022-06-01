@@ -15,7 +15,7 @@ export const Explore = () => {
   const getNewPosts = useCallback(async () => {
     setInfinteScrollStatus((prev) => ({ ...prev, loading: true }));
     const newPosts = await getCurrentPagedPosts(currentPage);
-    if (newPosts) {
+    if (newPosts.length > 0) {
       setPagedPosts((prev) => {
         return [...prev, ...newPosts];
       });
@@ -55,7 +55,7 @@ export const Explore = () => {
       <VStack gap={5}>
         {pagedPosts.length > 0 ? (
           pagedPosts.map((item) => <PostCard key={item._id} postData={item} />)
-        ) : (
+        ) : infiniteScrollStatus.loading ? null : (
           <Text>There are no posts to display.</Text>
         )}
         {infiniteScrollStatus.loading ? (
@@ -72,7 +72,7 @@ export const Explore = () => {
             You're All Caught Up!😎
           </Text>
         ) : null}
-        <Box h={"50px"} w="full" ref={targetRef}></Box>
+        <Box h={"50px"} w="full" mb="4" ref={targetRef}></Box>
       </VStack>
     </>
   );
