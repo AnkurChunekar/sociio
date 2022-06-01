@@ -121,7 +121,7 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
@@ -316,7 +316,7 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
@@ -366,7 +366,7 @@ export const posts = [
     },
     firstName: "Kola",
     lastName: "Tioluwani",
-    username: "allenhere",
+    username: "kolatioluwani",
     createdAt: new Date("Feb 28 2022 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -454,7 +454,7 @@ export const posts = [
     },
     firstName: "Kola",
     lastName: "Tioluwani",
-    username: "allenhere",
+    username: "kolatioluwani",
     createdAt: new Date("November 14 2021 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -689,7 +689,7 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
@@ -826,7 +826,7 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
@@ -869,7 +869,7 @@ export const posts = [
     },
     firstName: "Kola",
     lastName: "Tioluwani",
-    username: "allenhere",
+    username: "kolatioluwani",
     createdAt: new Date("October 08 2021 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -12,7 +12,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { PostCard, EditProfileModal } from "components";
+import { PostCard, EditProfileModal, FollowCountModal } from "components";
 import { logout } from "redux/slices/authSlice";
 import { getUserService } from "services";
 import {
@@ -28,8 +28,13 @@ export const Profile = () => {
     onOpen: onOpenProfile,
     onClose: onCloseProfile,
   } = useDisclosure();
+  const {
+    isOpen: isOpenFollowCount,
+    onOpen: onOpenFollowCount,
+    onClose: onCloseFollowCount,
+  } = useDisclosure();
   const [userData, setUserData] = useState(null);
-  // const [postData, setPostData] = useState(null);
+  const followCountDataRef = useRef(null);
   const toast = useToast();
 
   const { user, token } = useSelector((state) => state.auth);
@@ -120,17 +125,35 @@ export const Profile = () => {
       <HStack maxW={"500px"} bg="white" borderRadius="lg">
         <VStack py="3" px="5">
           <Text fontWeight="700">{userData.following.length}</Text>
-          <Text>Following</Text>
+          <Button
+            onClick={() => {
+              followCountDataRef.current = userData.following;
+              onOpenFollowCount();
+            }}
+            variant={"link"}
+            colorScheme="facebook"
+          >
+            Following
+          </Button>
         </VStack>
-        <VStack py="3" px="5">
-          {currentUsersPosts.length ? (
-            <Text fontWeight="700">{currentUsersPosts.length}</Text>
-          ) : null}
-          <Text>Posts</Text>
+        <VStack py="3" px="5" spacing={"0.35rem"}>
+          <Text fontWeight="700">
+            {currentUsersPosts.length > 0 ? currentUsersPosts.length : "0"}
+          </Text>
+          <Text fontWeight="500">Posts</Text>
         </VStack>
         <VStack py="3" px="5">
           <Text fontWeight="700">{userData.followers.length}</Text>
-          <Text>Followers</Text>
+          <Button
+            onClick={() => {
+              followCountDataRef.current = userData.followers;
+              onOpenFollowCount();
+            }}
+            variant={"link"}
+            colorScheme="facebook"
+          >
+            Followers
+          </Button>
         </VStack>
       </HStack>
 
@@ -151,6 +174,12 @@ export const Profile = () => {
         onCloseProfile={onCloseProfile}
         userData={userData}
         setUserData={setUserData}
+      />
+
+      <FollowCountModal
+        data={followCountDataRef.current}
+        isOpen={isOpenFollowCount}
+        onClose={onCloseFollowCount}
       />
     </VStack>
   ) : (
