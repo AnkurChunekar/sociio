@@ -150,7 +150,7 @@ export const PostCard = ({ postData }) => {
       {postData.fileURL ? (
         imgFileFormats.some((format) => postData.fileURL.includes(format)) ? (
           <AspectRatio height={"300px"} w="full" maxW="full" ratio={16 / 9}>
-            <Image alt="this is" borderRadius={"md"} src={postData.fileURL} />
+            <Image alt="the file chosen by user" borderRadius={"md"} src={postData.fileURL} />
           </AspectRatio>
         ) : (
           <AspectRatio height={"300px"} w="full" maxW="full" ratio={16 / 9}>

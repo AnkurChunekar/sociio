@@ -20,6 +20,7 @@ function App() {
           justifyContent="center"
           mx="2"
           my="5"
+          pb={"50px"}
           w="full"
           maxW={"1280px"}
           gap={10}

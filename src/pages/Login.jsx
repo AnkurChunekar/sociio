@@ -15,8 +15,10 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  Image,
 } from "@chakra-ui/react";
 import { login } from "redux/asyncThunks";
+import mobileScreenshotImg from "../assets/mobile.png";
 
 export function Login() {
   const navigate = useNavigate();
@@ -74,99 +76,104 @@ export function Login() {
   }, [token, navigate, user]);
 
   return (
-    <Flex
-      as="form"
-      onSubmit={handleLogin}
-      minH={"calc(100vh - 120px)"}
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.200", "gray.800")}
-    >
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in</Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool features ✌️
-          </Text>
-        </Stack>
-        <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
-          p={8}
-        >
-          <Stack spacing={4}>
-            <FormControl id="username">
-              <FormLabel>username</FormLabel>
-              <Input
-                value={userData.username}
-                name="username"
-                onChange={updateUserData}
-                type="text"
-                isRequired
-              />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel>Password</FormLabel>
-              <Input
-                name="password"
-                value={userData.password}
-                onChange={updateUserData}
-                type="password"
-                isRequired
-              />
-            </FormControl>
-            <Stack spacing={5}>
-              <Stack
-                direction={{ base: "column", sm: "row" }}
-                align={"start"}
-                justify={"space-between"}
-              >
-                <Checkbox
-                  type="checkbox"
-                  alignSelf="flex-start"
-                  isChecked={userData.toBeRemembered}
-                  onChange={() =>
-                    setUserData((ud) => ({
-                      ...ud,
-                      toBeRemembered: !ud.toBeRemembered,
-                    }))
-                  }
-                >
-                  Remember me
-                </Checkbox>
-              </Stack>
-              <Button
-                type="submit"
-                bg={"blue.400"}
-                color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-                isLoading={isLoading}
-              >
-                Sign in
-              </Button>
-              <Button
-                type="button"
-                onClick={handleGuestLogin}
-                colorScheme={"blue"}
-                variant={"outline"}
-              >
-                Use Guest Credentials
-              </Button>
-            </Stack>
-          </Stack>
-          <Stack pt={6}>
-            <Text align={"center"}>
-              Not a user?{" "}
-              <Link color={"blue.600"} as={ReachLink} to="/signup">
-                Sign up
-              </Link>
+    <Flex alignItems={"center"}  flexWrap={"wrap-reverse"} w="full" gap={"1rem"} justifyContent="space-evenly">
+      <Image alt="mobile screenshot of sociio app" src={mobileScreenshotImg} maxH="660px" />
+      <Flex
+        as="form"
+        onSubmit={handleLogin}
+        minH={"calc(100vh - 120px)"}
+        align={"center"}
+        justify={"center"}
+        bg={useColorModeValue("gray.200", "gray.800")}
+      >
+        <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack maxW="400px" align={"center"}>
+            <Heading textAlign={"center"} fontSize={{base: "xl", sm: "3xl"}}>
+              The Ultimate Social App to Meet New Friends.
+            </Heading>
+            <Text textAlign={"center"} fontSize={"lg"}>
+              Sign in to enjoy all of our cool features ✌️
             </Text>
           </Stack>
-        </Box>
-      </Stack>
+          <Box
+            rounded={"lg"}
+            bg={useColorModeValue("white", "gray.700")}
+            boxShadow={"lg"}
+            p={8}
+          >
+            <Stack spacing={4}>
+              <FormControl id="username">
+                <FormLabel>username</FormLabel>
+                <Input
+                  value={userData.username}
+                  name="username"
+                  onChange={updateUserData}
+                  type="text"
+                  isRequired
+                />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Password</FormLabel>
+                <Input
+                  name="password"
+                  value={userData.password}
+                  onChange={updateUserData}
+                  type="password"
+                  isRequired
+                />
+              </FormControl>
+              <Stack spacing={5}>
+                <Stack
+                  direction={{ base: "column", sm: "row" }}
+                  align={"start"}
+                  justify={"space-between"}
+                >
+                  <Checkbox
+                    type="checkbox"
+                    alignSelf="flex-start"
+                    isChecked={userData.toBeRemembered}
+                    onChange={() =>
+                      setUserData((ud) => ({
+                        ...ud,
+                        toBeRemembered: !ud.toBeRemembered,
+                      }))
+                    }
+                  >
+                    Remember me
+                  </Checkbox>
+                </Stack>
+                <Button
+                  type="submit"
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  isLoading={isLoading}
+                >
+                  Sign in
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleGuestLogin}
+                  colorScheme={"blue"}
+                  variant={"outline"}
+                >
+                  Use Guest Credentials
+                </Button>
+              </Stack>
+            </Stack>
+            <Stack pt={6}>
+              <Text align={"center"}>
+                Not a user?{" "}
+                <Link color={"blue.600"} as={ReachLink} to="/signup">
+                  Sign up
+                </Link>
+              </Text>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
     </Flex>
   );
 }
