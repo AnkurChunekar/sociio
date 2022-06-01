@@ -6,11 +6,11 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: "1b288c33-ff6d-49c0-a8d3-58b297f1452",
-    firstName: "Adarsh",
-    lastName: "Balika",
-    username: "adarshbalika",
-    email: "adarshbalika@gmail.com",
-    password: "adarshBalika123",
+    firstName: "Michelle",
+    lastName: "Gore",
+    username: "michellegore",
+    email: "michellegore@gmail.com",
+    password: "michellegore123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     avatarURL:
@@ -46,8 +46,8 @@ export const users = [
     bookmarks: [],
     statusImgURL:
       "https://i.picsum.photos/id/787/600/400.jpg?hmac=BNah2GlH1mF6ahc9LeQK6FAvlTiCGUBJjVnPjMtek7A",
-    bio: "I am very adarsh and i am also a balika.",
-    website: "https://adarshbalika.netlify.app/",
+    bio: "Proud food advocate. Gamer. Certified music specialist. Beer fanatic. Lifelong tv expert.",
+    website: "https://michellegore.com",
   },
   /*****************************************2*******************************************/
   {
@@ -65,9 +65,9 @@ export const users = [
       "https://res.cloudinary.com/sociio/image/upload/v1652726575/yPCbNKr8_400x400_xdc1e6.jpg",
     following: [
       {
-        firstName: "Adarsh",
-        lastName: "Balika",
-        username: "adarshbalika",
+        firstName: "Michelle",
+        lastName: "Gore",
+        username: "michellegore",
         avatarURL:
           "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
       },
@@ -76,24 +76,10 @@ export const users = [
         lastName: "Doe",
         username: "johndoe",
         avatarURL:
-          "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181890/socmedia/pic6_brdxis.jpg",
+          "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
       },
     ],
     followers: [
-      {
-        firstName: "Adarsh",
-        lastName: "Balika",
-        username: "adarshbalika",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
-      {
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        avatarURL:
-          "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181890/socmedia/pic6_brdxis.jpg",
-      },
       {
         firstName: "John",
         lastName: "Doe",
@@ -104,7 +90,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Chakra UI is my favorite i use it a lot",
-    website: "https://www.google.co.in/",
+    website: "https://github.com/segunadebayo",
   },
   /*******************************3*********************************/
   {
@@ -121,13 +107,6 @@ export const users = [
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
     followers: [
-      {
-        firstName: "Adarsh",
-        lastName: "Balika",
-        username: "adarshbalika",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
       {
         _id: "1b288c33-ff6d-49c0-a8d3-58b297f1459",
         firstName: "Ryan",
@@ -157,7 +136,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "An American singer, songwriter, actor, poet, guitarist and bass player",
-    website: "https://www.google.co.in/",
+    website: "https://john-doe.netlify.app/",
   },
   /**********************************************4*************************************************/
   {
@@ -175,13 +154,6 @@ export const users = [
     email: "ryanflorence@gmail.com",
     followers: [
       {
-        firstName: "Adarsh",
-        lastName: "Balika",
-        username: "adarshbalika",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
-      {
         firstName: "Dan",
         lastName: "Abramov",
         username: "danabramov",
@@ -191,9 +163,9 @@ export const users = [
     ],
     following: [
       {
-        firstName: "Adarsh",
-        lastName: "Balika",
-        username: "adarshbalika",
+        firstName: "Michelle",
+        lastName: "Gore",
+        username: "michellegore",
         avatarURL:
           "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
       },
@@ -214,7 +186,7 @@ export const users = [
     ],
     bookmarks: [],
     bio: "Remix - Build Better Websites | React Training | React Router",
-    website: "https://www.google.co.in/",
+    website: "https://ryanflorence.com/",
   },
   /**************************************************5**************************************************/
   {
@@ -240,18 +212,10 @@ export const users = [
           "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
       },
     ],
-    followers: [
-      {
-        firstName: "Adarsh",
-        lastName: "Balika",
-        username: "adarshbalika",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
-    ],
+    followers: [],
     bookmarks: [],
     bio: "Software engineer at Facebook | Creator of Redux.",
-    website: "https://www.google.co.in/",
+    website: "https://overreacted.io/",
   },
   /*********************************************7*****************************************/
   {
@@ -283,6 +247,6 @@ export const users = [
      and 
     @zag_js
     .`,
-    website: "https://www.google.co.in/",
+    website: "https://twitter.com/TioluwaniK",
   },
 ];

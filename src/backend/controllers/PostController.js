@@ -310,3 +310,19 @@ export const deletePostHandler = function (schema, request) {
     );
   }
 };
+
+export const getCurrentPagedPosts = function (schema, request) {
+  const { pageNum } = request.params;
+  const postsPerPage = 7;
+  const maxNumberOfPages = Math.ceil(this.db.posts.length / postsPerPage);
+  if (pageNum > maxNumberOfPages) {
+    return new Response(200, {}, { posts: [] });
+  }
+
+  const startIndex = postsPerPage * pageNum - 7;
+  let endIndex = postsPerPage * pageNum;
+  if (endIndex > this.db.posts.length) endIndex = this.db.posts.length;
+
+  const paginatedPosts = this.db.posts.slice(startIndex, endIndex);
+  return new Response(200, {}, { posts: paginatedPosts });
+};

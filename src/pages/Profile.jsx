@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -12,10 +12,15 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { PostCard, EditProfileModal } from "components";
+import { PostCard, EditProfileModal, FollowCountModal } from "components";
 import { logout } from "redux/slices/authSlice";
 import { getUserService } from "services";
-import { editUser, followUser, unfollowUser } from "redux/asyncThunks";
+import {
+  editUser,
+  followUser,
+  getAllPosts,
+  unfollowUser,
+} from "redux/asyncThunks";
 
 export const Profile = () => {
   const {
@@ -23,7 +28,13 @@ export const Profile = () => {
     onOpen: onOpenProfile,
     onClose: onCloseProfile,
   } = useDisclosure();
+  const {
+    isOpen: isOpenFollowCount,
+    onOpen: onOpenFollowCount,
+    onClose: onCloseFollowCount,
+  } = useDisclosure();
   const [userData, setUserData] = useState(null);
+  const followCountDataRef = useRef({});
   const toast = useToast();
 
   const { user, token } = useSelector((state) => state.auth);
@@ -32,13 +43,20 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
-  const isFollowedByUser = user.following.some(
-    (item) => item.username === userData?.username
-  );
+
+  const isFollowedByUser = userData
+    ? user.following.some((item) => item.username === userData.username)
+    : false;
 
   useEffect(() => {
     getUserService(username, setUserData);
   }, [username, user]);
+
+  useEffect(() => {
+    if (posts.length < 1) {
+      dispatch(getAllPosts());
+    }
+  }, [dispatch, posts.length]);
 
   const handleLogout = () => {
     navigate("/");
@@ -51,9 +69,6 @@ export const Profile = () => {
     });
   };
 
-  const currentUsersPosts =
-    userData && posts.filter((item) => item.username === userData.username);
-
   const followClickHandler = async () => {
     try {
       const response = await dispatch(
@@ -61,11 +76,15 @@ export const Profile = () => {
           ? unfollowUser({ followUserId: userData._id, token })
           : followUser({ followUserId: userData._id, token })
       );
+      getUserService(username, setUserData);
       dispatch(editUser({ userData: response.payload.data.user, token }));
     } catch (error) {
       console.error(error);
     }
   };
+
+  const currentUsersPosts =
+    userData && posts.filter((item) => item.username === userData.username);
 
   return userData ? (
     <VStack flexGrow={1} maxW="600px" minH="88vh">
@@ -108,15 +127,35 @@ export const Profile = () => {
       <HStack maxW={"500px"} bg="white" borderRadius="lg">
         <VStack py="3" px="5">
           <Text fontWeight="700">{userData.following.length}</Text>
-          <Text>Following</Text>
+          <Button
+            onClick={() => {
+              followCountDataRef.current =  {data: userData.following, dataName: "Following"};
+              onOpenFollowCount();
+            }}
+            variant={"link"}
+            colorScheme="facebook"
+          >
+            Following
+          </Button>
         </VStack>
-        <VStack py="3" px="5">
-          <Text fontWeight="700">{currentUsersPosts.length}</Text>
-          <Text>Posts</Text>
+        <VStack py="3" px="5" spacing={"0.35rem"}>
+          <Text fontWeight="700">
+            {currentUsersPosts.length > 0 ? currentUsersPosts.length : "0"}
+          </Text>
+          <Text fontWeight="500">Posts</Text>
         </VStack>
         <VStack py="3" px="5">
           <Text fontWeight="700">{userData.followers.length}</Text>
-          <Text>Followers</Text>
+          <Button
+            onClick={() => {
+              followCountDataRef.current = {data: userData.followers, dataName: "Followers"};
+              onOpenFollowCount();
+            }}
+            variant={"link"}
+            colorScheme="facebook"
+          >
+            Followers
+          </Button>
         </VStack>
       </HStack>
 
@@ -124,11 +163,9 @@ export const Profile = () => {
         All Posts
       </Text>
       <VStack w="full" gap={5} marginTop="50px">
-        {userData
+        {currentUsersPosts.length > 0
           ? currentUsersPosts.map((item) => (
-              <Fragment key={item._id}>
-                <PostCard postData={item} />
-              </Fragment>
+              <PostCard key={item._id} postData={item} />
             ))
           : null}
       </VStack>
@@ -139,6 +176,12 @@ export const Profile = () => {
         onCloseProfile={onCloseProfile}
         userData={userData}
         setUserData={setUserData}
+      />
+
+      <FollowCountModal
+        followCountData={followCountDataRef.current}
+        isOpen={isOpenFollowCount}
+        onClose={onCloseFollowCount}
       />
     </VStack>
   ) : (

@@ -4,7 +4,7 @@ import { PostCard } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers, getAllPosts } from "redux/asyncThunks";
 import { getFilteredPosts, getHomeFeed } from "helpers/filterHelpers";
-import { FilterRow, SearchBar, UserStatusRow } from "components";
+import { FilterRow, SearchBar } from "components";
 
 export const Home = () => {
   const [sortByValue, setSortByValue] = useState("");
@@ -25,7 +25,6 @@ export const Home = () => {
 
   return (
     <VStack gap={5} minH="88vh">
-      <UserStatusRow />
       <SearchBar />
       <FilterRow sortByValue={sortByValue} setSortByValue={setSortByValue} />
       {filteredPosts.length > 0 ? (

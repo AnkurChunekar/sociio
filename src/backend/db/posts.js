@@ -14,9 +14,9 @@ export const posts = [
       likeCount: 3,
       likedBy: [
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -121,7 +121,7 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
@@ -135,9 +135,9 @@ export const posts = [
         },
       ],
     },
-    username: "adarshbalika",
-    firstName: "Adarsh",
-    lastName: "Balika",
+    username: "michellegore",
+    firstName: "Michelle",
+    lastName: "Gore",
     createdAt: new Date("May 03 2022 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -210,9 +210,9 @@ export const posts = [
             "https://res.cloudinary.com/sociio/image/upload/v1652726468/dan-abramov_t3hlxr.jpg",
         },
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -316,16 +316,16 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
       ],
       dislikedBy: [],
     },
-    username: "adarshbalika",
-    firstName: "Adarsh",
-    lastName: "Balika",
+    username: "michellegore",
+    firstName: "Michelle",
+    lastName: "Gore",
     createdAt: new Date("May 12 2022 10:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -355,9 +355,9 @@ export const posts = [
             "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
         },
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -366,7 +366,7 @@ export const posts = [
     },
     firstName: "Kola",
     lastName: "Tioluwani",
-    username: "allenhere",
+    username: "kolatioluwani",
     createdAt: new Date("Feb 28 2022 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -380,9 +380,9 @@ export const posts = [
       likeCount: 2,
       likedBy: [
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -443,9 +443,9 @@ export const posts = [
             "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
         },
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -454,7 +454,7 @@ export const posts = [
     },
     firstName: "Kola",
     lastName: "Tioluwani",
-    username: "allenhere",
+    username: "kolatioluwani",
     createdAt: new Date("November 14 2021 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -468,9 +468,9 @@ export const posts = [
       likeCount: 4,
       likedBy: [
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -514,9 +514,9 @@ export const posts = [
       likeCount: 1,
       likedBy: [
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -595,9 +595,9 @@ export const posts = [
             "https://res.cloudinary.com/sociio/image/upload/v1652726468/dan-abramov_t3hlxr.jpg",
         },
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -630,9 +630,9 @@ export const posts = [
       likeCount: 4,
       likedBy: [
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -689,7 +689,7 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
@@ -713,9 +713,9 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: "adarshbalika",
-    firstName: "Adarsh",
-    lastName: "Balika",
+    username: "michellegore",
+    firstName: "Michelle",
+    lastName: "Gore",
     createdAt: new Date("July 18 2021 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -809,9 +809,9 @@ export const posts = [
             "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
         },
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },
@@ -826,7 +826,7 @@ export const posts = [
           _id: uuid(),
           firstName: "Kola",
           lastName: "Tioluwani",
-          username: "allenhere",
+          username: "kolatioluwani",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726657/code-beast_j4gbq1.jpg",
         },
@@ -869,7 +869,7 @@ export const posts = [
     },
     firstName: "Kola",
     lastName: "Tioluwani",
-    username: "allenhere",
+    username: "kolatioluwani",
     createdAt: new Date("October 08 2021 12:31:25"),
     updatedAt: formatDate(),
     avatarURL:
@@ -883,9 +883,9 @@ export const posts = [
       likeCount: 3,
       likedBy: [
         {
-          firstName: "Adarsh",
-          lastName: "Balika",
-          username: "adarshbalika",
+          firstName: "Michelle",
+          lastName: "Gore",
+          username: "michellegore",
           avatarURL:
             "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
         },

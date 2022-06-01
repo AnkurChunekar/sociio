@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Modal,
@@ -33,8 +33,19 @@ export const PostModal = ({
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const [isLoading, setLoading] = useState(false);
-  const initialFileData = { fileURL: editPostData.fileURL || "", file: {} };
+  const initialFileData = {
+    fileURL: editMode ? editPostData.fileURL : "",
+    file: {},
+  };
   const [fileData, setFileData] = useState(initialFileData);
+
+  useEffect(() => {
+    if (editMode && editPostData.fileURL) {
+      setFileData((prev) => ({ ...prev, fileURL: editPostData.fileURL }));
+    } else {
+      setFileData((prev) => ({ ...prev, fileURL: "" }));
+    }
+  }, [editMode, editPostData.fileURL]);
 
   const closeModalHandler = () => {
     !editMode && setPostData({ content: "" });
@@ -126,7 +137,7 @@ export const PostModal = ({
               />
               <BiImage fontSize="32px" />
             </FormLabel>
-            {fileData.fileURL !== "" ? (
+            {fileData.fileURL ? (
               <ButtonGroup size="sm" isAttached variant="outline">
                 <Button
                   _hover={{

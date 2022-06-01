@@ -20,13 +20,15 @@ export const SearchBar = () => {
   const [searchText, setSearchText] = useState("");
   const { usersData } = useSelector((state) => state.users);
 
-  const getSearchedUsers = (users) =>
-    users.filter(
+  const getSearchedUsers = (users) => {
+    const searchInput = searchText.toLowerCase();
+    return users.filter(
       (item) =>
-        item.username.includes(searchText) ||
-        item.firstName.includes(searchText) ||
-        item.lastName.includes(searchText)
+        item.username.includes(searchInput) ||
+        item.firstName.includes(searchInput) ||
+        item.lastName.includes(searchInput)
     );
+  };
 
   const searchedUsers = getSearchedUsers(usersData);
 
