@@ -60,16 +60,19 @@ export const Explore = () => {
     }
   }, [dispatch, posts.length]);
 
-  const filteredPosts =
-    pagedPosts.length > 0
-      ? posts.filter((post) => pagedPosts.some((item) => item._id === post._id))
-      : [];
+  const filteredPosts = infiniteScrollStatus.completed
+    ? posts
+    : pagedPosts.length > 0
+    ? posts.filter((post) => pagedPosts.some((item) => item._id === post._id))
+    : [];
 
   return (
     <>
       <VStack gap={5}>
         {filteredPosts.length > 0 ? (
-          filteredPosts.map((item) => <PostCard key={item._id} postData={item} />)
+          filteredPosts.map((item) => (
+            <PostCard key={item._id} postData={item} />
+          ))
         ) : infiniteScrollStatus.loading ? null : (
           <Text>There are no posts to display.</Text>
         )}

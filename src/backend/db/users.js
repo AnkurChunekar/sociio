@@ -76,24 +76,10 @@ export const users = [
         lastName: "Doe",
         username: "johndoe",
         avatarURL:
-          "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181890/socmedia/pic6_brdxis.jpg",
+          "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
       },
     ],
     followers: [
-      {
-        firstName: "Michelle",
-        lastName: "Gore",
-        username: "michellegore",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
-      {
-        firstName: "John",
-        lastName: "Doe",
-        username: "johndoe",
-        avatarURL:
-          "https://res.cloudinary.com/dodkrr6ce/image/upload/v1652181890/socmedia/pic6_brdxis.jpg",
-      },
       {
         firstName: "John",
         lastName: "Doe",
@@ -121,13 +107,6 @@ export const users = [
     avatarURL:
       "https://res.cloudinary.com/sociio/image/upload/v1652726783/53_yiuaqs.jpg",
     followers: [
-      {
-        firstName: "Michelle",
-        lastName: "Gore",
-        username: "michellegore",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
       {
         _id: "1b288c33-ff6d-49c0-a8d3-58b297f1459",
         firstName: "Ryan",
@@ -174,13 +153,6 @@ export const users = [
       "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
     email: "ryanflorence@gmail.com",
     followers: [
-      {
-        firstName: "Michelle",
-        lastName: "Gore",
-        username: "michellegore",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
       {
         firstName: "Dan",
         lastName: "Abramov",
@@ -240,15 +212,7 @@ export const users = [
           "https://res.cloudinary.com/sociio/image/upload/v1652726503/ryan-florence_zapcpf.jpg",
       },
     ],
-    followers: [
-      {
-        firstName: "Michelle",
-        lastName: "Gore",
-        username: "michellegore",
-        avatarURL:
-          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
-      },
-    ],
+    followers: [],
     bookmarks: [],
     bio: "Software engineer at Facebook | Creator of Redux.",
     website: "https://overreacted.io/",

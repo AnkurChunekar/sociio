@@ -15,13 +15,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-export const FollowCountModal = ({ isOpen, onClose, data }) => {
+export const FollowCountModal = ({ isOpen, onClose, followCountData }) => {
   return (
     <>
       <Modal onClose={onClose} isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>List of Users</ModalHeader>
+          <ModalHeader>{followCountData.dataName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <UnorderedList
@@ -36,9 +36,9 @@ export const FollowCountModal = ({ isOpen, onClose, data }) => {
               listStyleType={"none"}
               bg="white"
             >
-              {data
-                ? data.map((item) => (
-                    <ListItem p="2" key={item._id}>
+              {followCountData.data
+                ? followCountData.data.map((item) => (
+                    <ListItem p="2" key={item.username}>
                       <Link
                         as={ReachLink}
                         display={"flex"}

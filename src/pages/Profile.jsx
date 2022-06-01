@@ -34,7 +34,7 @@ export const Profile = () => {
     onClose: onCloseFollowCount,
   } = useDisclosure();
   const [userData, setUserData] = useState(null);
-  const followCountDataRef = useRef(null);
+  const followCountDataRef = useRef({});
   const toast = useToast();
 
   const { user, token } = useSelector((state) => state.auth);
@@ -43,9 +43,10 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useParams();
-  const isFollowedByUser = user.following.some(
-    (item) => item.username === userData?.username
-  );
+
+  const isFollowedByUser = userData
+    ? user.following.some((item) => item.username === userData.username)
+    : false;
 
   useEffect(() => {
     getUserService(username, setUserData);
@@ -75,6 +76,7 @@ export const Profile = () => {
           ? unfollowUser({ followUserId: userData._id, token })
           : followUser({ followUserId: userData._id, token })
       );
+      getUserService(username, setUserData);
       dispatch(editUser({ userData: response.payload.data.user, token }));
     } catch (error) {
       console.error(error);
@@ -127,7 +129,7 @@ export const Profile = () => {
           <Text fontWeight="700">{userData.following.length}</Text>
           <Button
             onClick={() => {
-              followCountDataRef.current = userData.following;
+              followCountDataRef.current =  {data: userData.following, dataName: "Following"};
               onOpenFollowCount();
             }}
             variant={"link"}
@@ -146,7 +148,7 @@ export const Profile = () => {
           <Text fontWeight="700">{userData.followers.length}</Text>
           <Button
             onClick={() => {
-              followCountDataRef.current = userData.followers;
+              followCountDataRef.current = {data: userData.followers, dataName: "Followers"};
               onOpenFollowCount();
             }}
             variant={"link"}
@@ -177,7 +179,7 @@ export const Profile = () => {
       />
 
       <FollowCountModal
-        data={followCountDataRef.current}
+        followCountData={followCountDataRef.current}
         isOpen={isOpenFollowCount}
         onClose={onCloseFollowCount}
       />
