@@ -51,7 +51,7 @@ export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const { pathname } = location;
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -63,7 +63,11 @@ export const Navbar = () => {
           alignItems="center"
           maxW={"1280px"}
         >
-          <Link as={ReachLink} _hover={{ textDecoration: "none" }} to="/home">
+          <Link
+            as={ReachLink}
+            _hover={{ textDecoration: "none" }}
+            to={user && token ? "/home" : "/"}
+          >
             <Heading as="h2">Sociio</Heading>
           </Link>
 
@@ -87,7 +91,7 @@ export const Navbar = () => {
                 w="100%"
                 py={{ base: 1, sm: 0 }}
                 gap={{ base: 0.5, sm: 1, md: 2 }}
-                borderTop={ {base: "solid 1px lightgray", sm: "none"}}
+                borderTop={{ base: "solid 1px lightgray", sm: "none" }}
               >
                 {linkData.map((item) => (
                   <Tooltip key={item.id} label={item.tooltipText}>
@@ -97,7 +101,7 @@ export const Navbar = () => {
                         h="full"
                         p={2}
                         d="block"
-                        bg={{base: "none", sm: "gray.100"}}
+                        bg={{ base: "none", sm: "gray.100" }}
                         _hover={{ backgroundColor: "gray.200" }}
                         borderRadius="full"
                         lineHeight={"100%"}
