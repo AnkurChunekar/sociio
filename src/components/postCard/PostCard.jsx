@@ -170,6 +170,7 @@ export const PostCard = ({ postData }) => {
               size={"xs"}
               py="2"
               borderRadius={"full"}
+              aria-label="Like Post"
               icon={isLikedByUser ? <AiFillHeart /> : <AiOutlineHeart />}
             />
           </Tooltip>
@@ -186,6 +187,7 @@ export const PostCard = ({ postData }) => {
               py="2"
               borderRadius={"full"}
               icon={<VscComment />}
+              aria-label="Add Comment on Post"
             />
           </Tooltip>
           <Text>{postData.comments.length}</Text>
@@ -201,6 +203,7 @@ export const PostCard = ({ postData }) => {
               size={"xs"}
               py="2"
               borderRadius={"full"}
+              aria-label="Add Post to Bookmarks"
               icon={isBookmarkedByUser ? <BsBookmarkFill /> : <BsBookmark />}
             />
           </Tooltip>

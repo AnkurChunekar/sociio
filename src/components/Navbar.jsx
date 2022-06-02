@@ -77,6 +77,7 @@ export const Navbar = () => {
                 <IconButton
                   onClick={onOpen}
                   borderRadius="full"
+                  aria-label="Create New Post"
                   icon={<IoMdAddCircleOutline size="22px" w="25px" h="25px" />}
                 />
               </Tooltip>
