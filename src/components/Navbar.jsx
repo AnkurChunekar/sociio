@@ -96,7 +96,7 @@ export const Navbar = () => {
               >
                 {linkData.map((item) => (
                   <Tooltip key={item.id} label={item.tooltipText}>
-                    <Link borderRadius="full" as={ReachLink} to={item.pathname}>
+                    <Link aria-label={`Go To ${item.tooltipText} Page`} borderRadius="full" as={ReachLink} to={item.pathname}>
                       <Icon
                         w="40px"
                         h="full"
@@ -119,6 +119,7 @@ export const Navbar = () => {
               <Link
                 borderRadius="full"
                 as={ReachLink}
+                aria-label="Go To Profile Page"
                 to={`/profile/${user.username}`}
               >
                 <Tooltip label="Profile" fontSize="md">

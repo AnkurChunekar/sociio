@@ -100,7 +100,7 @@ export const PostCard = ({ postData }) => {
           _hover={{ textDecoration: "none" }}
           to={`/profile/${postData.username}`}
         >
-          <Avatar size="sm" src={avatarURL} />
+          <Avatar size="sm" src={avatarURL} alt="Post Creator's Avatar" />
           <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
             <Text fontWeight={"600"} fontSize="lg">
               {postData.firstName + " " + postData.lastName}
