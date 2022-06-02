@@ -4,6 +4,7 @@ Following changes were made after submissions.
 - Add infinite scroll in explore page.
 - Bottom navbar in mobile.
 - Display following and followers count.
+- Add debouncing on Search.
 
 ## Refactors
 - Change default user name
@@ -13,3 +14,4 @@ Following changes were made after submissions.
 - Update likes, comments on explore page.
 - Image deleted while editing post.
 - Improper follwers data in users db in backend
+- updated profile pic was not getting updated in the followers' list

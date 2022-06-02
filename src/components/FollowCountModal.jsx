@@ -1,4 +1,5 @@
 import { Link as ReachLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   Modal,
   ModalOverlay,
@@ -16,6 +17,8 @@ import {
 } from "@chakra-ui/react";
 
 export const FollowCountModal = ({ isOpen, onClose, followCountData }) => {
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <>
       <Modal onClose={onClose} isOpen={isOpen}>
@@ -51,7 +54,11 @@ export const FollowCountModal = ({ isOpen, onClose, followCountData }) => {
                         <HStack alignItems={"flex-start"}>
                           <Avatar
                             size="sm"
-                            src={item.avatarURL}
+                            src={
+                              item.username === user.username
+                                ? user.avatarURL
+                                : item.avatarURL
+                            }
                             name={item.firstName + " " + item.lastName}
                             mt="0.5"
                           />

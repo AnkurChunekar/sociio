@@ -160,6 +160,13 @@ export const users = [
         avatarURL:
           "https://res.cloudinary.com/sociio/image/upload/v1652726468/dan-abramov_t3hlxr.jpg",
       },
+      {
+        firstName: "Michelle",
+        lastName: "Gore",
+        username: "michellegore",
+        avatarURL:
+          "https://res.cloudinary.com/sociio/image/upload/v1652726733/63_ncg2cv.jpg",
+      },
     ],
     following: [
       {

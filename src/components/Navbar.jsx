@@ -51,7 +51,7 @@ export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const { pathname } = location;
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -63,7 +63,11 @@ export const Navbar = () => {
           alignItems="center"
           maxW={"1280px"}
         >
-          <Link as={ReachLink} _hover={{ textDecoration: "none" }} to="/home">
+          <Link
+            as={ReachLink}
+            _hover={{ textDecoration: "none" }}
+            to={user && token ? "/home" : "/"}
+          >
             <Heading as="h2">Sociio</Heading>
           </Link>
 
@@ -73,6 +77,7 @@ export const Navbar = () => {
                 <IconButton
                   onClick={onOpen}
                   borderRadius="full"
+                  aria-label="Create New Post"
                   icon={<IoMdAddCircleOutline size="22px" w="25px" h="25px" />}
                 />
               </Tooltip>
@@ -87,17 +92,17 @@ export const Navbar = () => {
                 w="100%"
                 py={{ base: 1, sm: 0 }}
                 gap={{ base: 0.5, sm: 1, md: 2 }}
-                borderTop={ {base: "solid 1px lightgray", sm: "none"}}
+                borderTop={{ base: "solid 1px lightgray", sm: "none" }}
               >
                 {linkData.map((item) => (
                   <Tooltip key={item.id} label={item.tooltipText}>
-                    <Link borderRadius="full" as={ReachLink} to={item.pathname}>
+                    <Link aria-label={`Go To ${item.tooltipText} Page`} borderRadius="full" as={ReachLink} to={item.pathname}>
                       <Icon
                         w="40px"
                         h="full"
                         p={2}
                         d="block"
-                        bg={{base: "none", sm: "gray.100"}}
+                        bg={{ base: "none", sm: "gray.100" }}
                         _hover={{ backgroundColor: "gray.200" }}
                         borderRadius="full"
                         lineHeight={"100%"}
@@ -114,6 +119,7 @@ export const Navbar = () => {
               <Link
                 borderRadius="full"
                 as={ReachLink}
+                aria-label="Go To Profile Page"
                 to={`/profile/${user.username}`}
               >
                 <Tooltip label="Profile" fontSize="md">
