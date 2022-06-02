@@ -100,12 +100,12 @@ export const PostCard = ({ postData }) => {
           _hover={{ textDecoration: "none" }}
           to={`/profile/${postData.username}`}
         >
-          <Avatar size="sm" src={avatarURL} alt="Post Creator's Avatar" />
+          <Avatar size="sm" src={avatarURL} name={postData.firstName + " " + postData.lastName} />
           <HStack alignItems={"center"} flexGrow="1" flexWrap={"wrap"}>
             <Text fontWeight={"600"} fontSize="lg">
               {postData.firstName + " " + postData.lastName}
             </Text>
-            <Text color="var(--chakra-colors-gray-500)">
+            <Text color="var(--chakra-colors-gray-800)">
               @{postData.username}
             </Text>
           </HStack>
@@ -211,7 +211,7 @@ export const PostCard = ({ postData }) => {
       </HStack>
 
       {postData.likes.likeCount > 0 ? (
-        <Text color={"gray"} fontSize={"sm"} px="2">
+        <Text color={"gray.800"} fontSize={"sm"} px="2">
           Liked by {postData.likes.likedBy[0].username}
           {postData.likes.likeCount > 1
             ? ` and ${postData.likes.likeCount - 1} others`

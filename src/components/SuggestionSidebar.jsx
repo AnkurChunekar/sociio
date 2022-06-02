@@ -41,12 +41,12 @@ const SuggestedProfile = ({ profileData, token }) => {
         to={`/profile/${username}`}
       >
         <HStack w="full" alignItems={"flex-start"} flexGrow="1" gap={2}>
-          <Avatar size="sm" src={avatarURL} alt="User Avatar" />
+          <Avatar size="sm" src={avatarURL} name={firstName + " " + lastName} />
           <Box>
             <Text fontWeight={"600"} lineHeight="1">
               {firstName + " " + lastName}
             </Text>
-            <Text fontSize={"sm"} color="var(--chakra-colors-gray-500)">
+            <Text fontSize={"sm"} color="var(--chakra-colors-gray-800)">
               @{username}
             </Text>
           </Box>
