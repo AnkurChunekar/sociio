@@ -24,8 +24,8 @@ export const SearchBar = () => {
 
   useEffect(() => {
     clearTimeout(timerId.current);
-    timerId.current = setTimeout(() => {
-      if (searchText.trim() !== "") {
+    if (searchText.trim() !== "") {
+      timerId.current = setTimeout(() => {
         const getSearchedUsers = (users) => {
           const searchInput = searchText.toLowerCase();
           return users.filter(
@@ -37,8 +37,8 @@ export const SearchBar = () => {
         };
         const searchedUsers = getSearchedUsers(usersData);
         setSearchResults(searchedUsers);
-      }
-    }, 400);
+      }, 400);
+    }
   }, [searchText, usersData]);
 
   return (
